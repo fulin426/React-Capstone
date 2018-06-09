@@ -9,6 +9,9 @@
 //Venue Search
 //https://api.songkick.com/api/3.0/venues/{venue_id}.json?apikey={your_api_key}
 
+//Similar Artists
+//https://api.songkick.com/api/3.0/artists/{artist_id}/similar_artists.json?apikey={your_api_key}
+
 const API_Key ='mtLUgpC0c49wQgiQ';
 const artist_name = 'Alesso';
 const artist_id = 4329851;
@@ -34,7 +37,7 @@ console.log(splits);
 
 //https://www.google.com/maps/search/?api=1&query=99+Grove+Street
 
-const time = '21:00:00';
+const time = '23:00:00';
 
 function convertAMPM(time) {
   let time_split = time.split(':');
