@@ -50,9 +50,7 @@ nav {
 	color: white;
 	font-size: 44px;
 	font-weight: bold;
-	position: absolute;
 	padding: 8px;
-	margin-bottom: 10px
 }
 
 /*Landing Page*/
@@ -65,7 +63,45 @@ nav {
     background-color: white;
     text-align: center;
 	height: 600px;
-	/*z-index: -10;*/
+}
+
+.landing-header {
+	line-height: 250px;
+	font-size: 32px;
+}
+
+button{
+	height: 46px;
+    padding: 8px;
+    background-color: white;
+    color: black;
+    border-radius: 3px;
+    font-size: 22px;
+    font-weight: bold;
+    height: 46px;
+    cursor:pointer;
+}
+
+.log-in-button {
+	height: 60px;
+	font-size: 48px;
+	padding: 2px;
+}
+
+.not-member {
+	display: inline-block;
+	margin-top: 18px;
+}
+
+.not-member-text {
+	display: inline-block;
+}
+.get-started {
+	display: inline-block;
+}
+
+.get-started-button {
+	margin-left: 5px;
 }
 
 /*Icons*/
