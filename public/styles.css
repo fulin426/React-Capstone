@@ -27,6 +27,7 @@
 
 * {
   box-sizing: border-box;
+/*  	border: 1px solid red;*/
 }
 
 body {
@@ -36,9 +37,45 @@ body {
 html, body {
 	height: 100%;
 }
+
+ul {
+	list-style-type: none;
+}
+
 /*Navigation*/
 nav {
 	width: 100%;
+/*	background-color: black;*/
 	background-color: #0079bf;
-	height: 80px;
+	height: 70px;
+	color: white;
+	font-size: 44px;
+	font-weight: bold;
+	position: absolute;
+}
+
+/*Landing Page*/
+#landing-image {
+	max-height: 400px;
+	max-width: 80%;
+	display: block;
+	margin: 0 auto;
+}
+
+/*Icons*/
+.icons-wrapper {
+	margin: 0 auto;
+	width: 100%;
+}
+.icons-container {
+	margin: 0 auto;
+	max-width: 90%;
+}
+
+.icon {
+	text-align: center;
+}
+
+.icon-description {
+	font-size: 26px;
 }
