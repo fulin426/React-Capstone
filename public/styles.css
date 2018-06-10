@@ -25,6 +25,20 @@
 	-moz-padding-end: 0px;
 }
 
-p {
-	color: red;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+html, body {
+	height: 100%;
+}
+/*Navigation*/
+nav {
+	width: 100%;
+	background-color: #0079bf;
+	height: 80px;
 }
