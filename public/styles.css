@@ -45,31 +45,33 @@ ul {
 /*Navigation*/
 nav {
 	width: 100%;
-/*	background-color: black;*/
-	background-color: #0079bf;
+	background-color: black;
 	height: 70px;
 	color: white;
 	font-size: 44px;
 	font-weight: bold;
 	position: absolute;
+	padding: 8px;
+	margin-bottom: 10px
 }
 
 /*Landing Page*/
-#landing-image {
-	max-height: 400px;
-	max-width: 80%;
+.landing-image-container {
 	display: block;
-	margin: 0 auto;
+	background-image:url("https://raw.githubusercontent.com/fulin426/React-Capstone/master/public/Images/img_background_filtered.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-position: center;
+    background-color: white;
+    text-align: center;
+	height: 600px;
+	/*z-index: -10;*/
 }
 
 /*Icons*/
-.icons-wrapper {
-	margin: 0 auto;
-	width: 100%;
-}
 .icons-container {
-	margin: 0 auto;
-	max-width: 90%;
+	margin-top: 15px;
+	max-width: 80%;
 }
 
 .icon {
@@ -78,4 +80,29 @@ nav {
 
 .icon-description {
 	font-size: 26px;
+}
+
+/*footer*/
+
+a:link {
+	color: black;
+}
+
+footer{
+	margin-bottom: 15px;
+	margin-top: 15px;
+	text-align: center;
+}
+
+.contacts-wrapper {
+	margin: 0 auto;
+	max-width: 240px;
+	margin-top: 10px;
+}
+
+.contact-logo{
+	display: inline-block;
+	width: 31%;
+	margin: 0 auto;
+	text-align: center;
 }

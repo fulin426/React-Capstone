@@ -2,43 +2,66 @@
 <html>
 <head>
 	<title>React Capstone</title>
+	<link rel="stylesheet" type="text/css" href="float-grid.css">
 	<link rel="stylesheet" type="text/css" href="styles.css">
-	<link rel="stylesheet" type="text/css" href="float-grid.css"
 	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
 <body>
 <nav>Upcoming</nav>
 <main>
-	<div class='landing-image'>
-		<img id='landing-image' alt='landing image crowd' src='https://raw.githubusercontent.com/fulin426/React-Capstone/master/public/Images/img_background_cropped.png'>
+	<div class='landing-image-container'>
+		<div>
+			<h1>Never miss another event!</h1>
+		</div>
+		<div class='log-in'>
+			<button>Log In</button>
+		</div>
 	</div>
 	<div class='row icons-container'>
 		<div class="col-4">
 			<div class='icon search'>
 				<h2 class='icon-description'>SEARCH</h2>
-				<i class="fas fa-search fa-10x"></i>
+				<i class="fas fa-search fa-8x"></i>
 				<h2 class='icon-description'>DISCOVER</h2>
 			</div>
 		</div>
 		<div class="col-4">
 			<div class='icon calendar'>
 				<h2 class='icon-description'>ADD</h2>
-				<i class="far fa-calendar-alt fa-10x"></i>
+				<i class="far fa-calendar-alt fa-8x"></i>
 				<h2 class='icon-description'>EVENTS</h2>
 			</div>
 		</div>
 		<div class="col-4">
 			<div class='icon music'>
 				<h2 class='icon-description'>ENJOY</h2>
-				<i class="fas fa-music fa-10x"></i>
+				<i class="fas fa-music fa-8x"></i>
 				<h2 class='icon-description'>MUSIC</h2>
 			</div>
 		</div>	
 	</div>			
 </main>	
-
-<footer></footer>
+<footer role="contentinfo">
+	<p>© Fu-Lin Liu</p>
+	<div class='contacts-wrapper'>
+		<div class='contact-logo email'>
+			<a href='mailto:fulin426@gmail.com?subject=Hello%20There'>
+			<i class="far fa-envelope fa-2x"></i>
+			</a>
+		</div>
+		<div class='contact-logo linkedin'>
+			<a href='https://www.linkedin.com/in/fu-lin-liu-46694714/'>
+			<i class="fab fa-linkedin fa-2x"></i>
+			</a>
+		</div>
+		<div class='contact-logo github'>
+			<a href='https://github.com/fulin426'>
+			<i class="fab fa-github fa-2x"></i>
+			</a>
+		</div>
+	</div>
+</footer>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="client.js"></script>
 </body>
