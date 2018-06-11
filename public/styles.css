@@ -199,3 +199,61 @@ footer{
 	margin: 0 auto;
 	text-align: center;
 }
+/*my events page*/
+.searchbar-button-container {
+	margin: 0 auto;
+	margin-top: 22px;
+	margin-bottom: 10px;
+	max-width: 500px;
+	height: 60px;
+}
+
+.events-search-bar {
+	width: 80%;
+	height: 46px;
+	border: 1px solid #cdd2d4;
+	padding: 5px;
+	font-size: 20px;
+	display: inline-block;
+}
+
+.events-search-button{
+	display: inline-block;
+}
+
+.my-events-header{
+	text-align: center;
+	font-size: 30px;
+}
+
+.events-row {
+	max-width: 690px;
+	padding: 10px 20px;
+	margin: 0 auto;
+	border: 1px solid #cdd2d4;
+	border-radius: 3px;
+	margin-top: 15px;
+}
+
+/* Clearfix */
+.events-row::before,
+.events-row::after {
+  display: table;
+  content: '';
+}
+
+.events-row::after {
+  clear: both;
+}
+
+.date-time {
+	text-align: right;
+}
+
+.event-info {
+
+}
+
+.event-add-button {
+	text-align: right;
+}

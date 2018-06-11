@@ -29,7 +29,7 @@ function getDataFromApi(searchTerm, callback) {
   $.ajax(settings);
 }
 
-/*$(getDataFromApi);*/
+$(getDataFromApi);
 
 const Event_Name = 'Alesso at XS Nightclub, the Wynn (June 16, 2018)';
 const splits = Event_Name.split('(',2);
@@ -37,7 +37,7 @@ console.log(splits);
 
 //https://www.google.com/maps/search/?api=1&query=99+Grove+Street
 
-const time = '23:00:00';
+const time = '20:00:00';
 
 function convertAMPM(time) {
   let time_split = time.split(':');
