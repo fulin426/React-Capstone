@@ -1,3 +1,4 @@
+//https://www.google.com/maps/search/?api=1&query=99+Grove+Street
 
 //Upcoming Events Calendar
 //https://api.songkick.com/api/3.0/artists/{artist_id}/calendar.json?apikey={your_api_key}
@@ -15,27 +16,49 @@
 const API_Key ='mtLUgpC0c49wQgiQ';
 const artist_name = 'Alesso';
 const artist_id = 4329851;
+const venue_id = 65;
 
-function getDataFromApi(searchTerm, callback) {
+function getCalendarData(searchTerm, callback) {
   let settings = {
     url:`https://api.songkick.com/api/3.0/artists/${artist_id}/calendar.json?apikey=${API_Key}`,
     dataType: 'json',
     type: 'GET',
     success: data => {
-    	console.log(data);
     	console.log(data.resultsPage.results.event);
+      //venue ID
+      console.log(data.resultsPage.results.event[0].venue.id);
     },
   };
   $.ajax(settings);
 }
 
-$(getDataFromApi);
+function getArtistData (searchTerm) {
+    let settings = {
+    url:`https://api.songkick.com/api/3.0/search/artists.json?apikey=${API_Key}&query=${artist_name}`,
+    dataType: 'json',
+    type: 'GET',
+    success: data => {
+      console.log(data.resultsPage.results.artist[0].id);
+    },
+  };
+  $.ajax(settings);
+}
+
+function getVenueData (searchTerm) {
+    let settings = {
+    url:`https://api.songkick.com/api/3.0/venues/${venue_id}.json?apikey=${API_Key}`,
+    dataType: 'json',
+    type: 'GET',
+    success: data => {
+      console.log(data);
+    },
+  };
+  $.ajax(settings);
+}
 
 const Event_Name = 'Alesso at XS Nightclub, the Wynn (June 16, 2018)';
 const splits = Event_Name.split('(',2);
-console.log(splits);
-
-//https://www.google.com/maps/search/?api=1&query=99+Grove+Street
+/*console.log(splits);*/
 
 const time = '20:00:00';
 
@@ -58,4 +81,8 @@ function convertAMPM(time) {
   return convertedTime;
 };
 
-console.log(convertAMPM(time));
+/*console.log(convertAMPM(time));*/
+
+$(getCalendarData);
+$(getArtistData);
+$(getVenueData); 
