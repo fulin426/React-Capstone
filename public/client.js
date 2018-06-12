@@ -38,10 +38,8 @@ function getCalendarData(artistID) {
     type: 'GET',
     success: data => {
       console.log(data);
-      const results = data.resultsPage.results.map((item, index) =>{
-        return displaySearchResults(item); 
-      });
-      $('.my-search-results-container').html(results);
+      const searchResults = data.resultsPage.results.event.map((item, index) => displaySearchResults(item));
+      $('.my-search-results-container').html(searchResults);
       //venue ID
       console.log(data.resultsPage.results.event[0].venue.id);
       //Start time
@@ -79,16 +77,16 @@ function getVenueData (data) {
   $.ajax(settings);
 }
 
-function displaySearchResults(result) {
+function displaySearchResults(data) {
  return `   
         <div class='events-row my-events'>      
           <div class='col-3 date-time'>
-            <p>June 15, 2018</p>
-            <p>8:00 PM</p>
+            <p>${data.start.date}</p>
+            <p>${ifNull(data.start.time)}</p>
           </div>
           <div class='col-6 event-info'>
-            <p><a href='#'>${data.resultsPage.results.event[0].displayName}</a></p>
-            <p><a href='#'>Venue Name</a></p>
+            <p><a href='${data.uri}'>${splitEventName(data.displayName)}</a></p>
+            <p><a href='${data.venue.uri}'>${data.venue.displayName}</a></p>
             <p>99 Grove St, San Francisco, CA 94102</p>
             <p><a href='#'>Map it</a>
           </div>
@@ -109,6 +107,8 @@ function splitDate(eventName)  {
   const date = splits[1].split(')',2)
   return date[0];
 }
+//
+
 //Convert from military time
 function convertAMPM(time) {
   let time_split = time.split(':');
@@ -129,11 +129,17 @@ function convertAMPM(time) {
   return convertedTime;
 };
 
-/*console.log(convertAMPM(time));*/
+function ifNull(time) {
+  if(time == null) {
+    return '';
+  } else {
+    let newTime = convertAMPM(time)
+    return newTime;
+  }
+}
 
-/*$(getCalendarData);*/
 $(getArtistData);
-/*$(getVenueData); */
+
 
 //Triggers
 /*$(document).ready(function () {
