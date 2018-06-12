@@ -14,13 +14,10 @@
 //https://api.songkick.com/api/3.0/artists/{artist_id}/similar_artists.json?apikey={your_api_key}
 
 const API_Key ='mtLUgpC0c49wQgiQ';
-const artist_name = 'Alesso';
-const artist_id = 4329851;
-const venue_id = 65;
 
 function getArtistData (searchTerm) {
     let settings = {
-    url:`https://api.songkick.com/api/3.0/search/artists.json?apikey=${API_Key}&query=${artist_name}`,
+    url:`https://api.songkick.com/api/3.0/search/artists.json?apikey=${API_Key}&query=${searchTerm}`,
     dataType: 'json',
     type: 'GET',
     success: data => {
@@ -33,21 +30,22 @@ function getArtistData (searchTerm) {
 
 function getCalendarData(artistID) {
   let settings = {
-    url:`https://api.songkick.com/api/3.0/artists/${artist_id}/calendar.json?apikey=${API_Key}`,
+    url:`https://api.songkick.com/api/3.0/artists/${artistID}/calendar.json?apikey=${API_Key}`,
     dataType: 'json',
     type: 'GET',
     success: data => {
       console.log(data);
-      const searchResults = data.resultsPage.results.event.map((item, index) => displaySearchResults(item));
+      try { 
+        let searchResults = data.resultsPage.results.event.map((item, index) => displaySearchResults(item));
       $('.my-search-results-container').html(searchResults);
+      } catch (error) {
+        $('.my-search-results-container').prop('hidden', false).html("<div class='error_result'><p>Sorry! No Results Found.</p></div>");
+        }
+      },
+      error: function() {
+        $('.my-search-results-container').prop('hidden', false).html("<div class='error_result'><p>Sorry! No Results Found.</p></div>");
       //venue ID
       console.log(data.resultsPage.results.event[0].venue.id);
-      //Start time
-      console.log(data.resultsPage.results.event[0].start.time);
-      //Display Header
-      console.log(data.resultsPage.results.event[0].displayName);
-      //Event Link
-      console.log(data.resultsPage.results.event[0].uri);
     },
   };
   $.ajax(settings);
@@ -81,14 +79,14 @@ function displaySearchResults(data) {
  return `   
         <div class='events-row my-events'>      
           <div class='col-3 date-time'>
-            <p>${data.start.date}</p>
+            <p>${formateDate(data.start.date)}</p>
             <p>${ifNull(data.start.time)}</p>
           </div>
           <div class='col-6 event-info'>
             <p><a href='${data.uri}'>${splitEventName(data.displayName)}</a></p>
             <p><a href='${data.venue.uri}'>${data.venue.displayName}</a></p>
-            <p>99 Grove St, San Francisco, CA 94102</p>
-            <p><a href='#'>Map it</a>
+            <p>${data.location.city}</p>
+            <p><a href='#'></a>
           </div>
           <div class='col-3 event-add-button'>
             <p id='add-event-trigger'><i class="fas fa-plus-square fa-2x"></i></p>  
@@ -107,7 +105,11 @@ function splitDate(eventName)  {
   const date = splits[1].split(')',2)
   return date[0];
 }
-//
+
+function formateDate(data) {
+  return `${data.slice(5, 10)}-${data.slice(0,4)}`;
+}
+
 
 //Convert from military time
 function convertAMPM(time) {
@@ -137,9 +139,6 @@ function ifNull(time) {
     return newTime;
   }
 }
-
-$(getArtistData);
-
 
 //Triggers
 /*$(document).ready(function () {
@@ -193,4 +192,5 @@ $('#signup-events-page').on('click', event => {
 $('.events-search-button').on('click', event => {
   event.preventDefault();
   let artist = $('.events-search-bar').val();
+  getArtistData (artist);
 });
