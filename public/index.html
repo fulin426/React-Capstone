@@ -10,18 +10,18 @@
 <body>
 <nav>Upcoming</nav>
 <main>
-	<section id='landing page'>	
+	<section id='landing-page'>	
 		<div class='landing-image-container'>
 			<div class='login-getstarted-wrapper'>
 				<div class='log-in'>
-					<button class='log-in-button'>Log In</button>
+					<button id='login-trigger' class='log-in-button'>Log In</button>
 				</div>
 				<div class='not-member'>
 					<div class='not-member-text'>
 						<p>Not a member? Let's</p>
 					</div>
 					<div class='get-started'>
-						<button class='get-started-button'>Get Started</button>
+						<button id='get-started-trigger'class='get-started-button'>Get Started</button>
 					</div>
 				</div>
 			</div>	
@@ -64,7 +64,7 @@
 					<input class="email-password-input" type="password" placeholder="e.g., demo-password"  required value=""/>
 				</div>
 
-				<button type="submit" class="signup-login-button">Log In</button>	
+				<button type="submit" id='login-events-page'class="signup-login-button">Log In</button>	
 			</fieldset>
 			<div class="already-member">
 				<p>Not a member? <a id="login-form-signup-trigger" href="#">Sign Up</a></p>
@@ -82,7 +82,7 @@
 					<label class="signup-pass-label">Password:</label>
 					<input class="email-password-input" type="password" placeholder="e.g., new-password"  required value=""/>
 				</div>
-				<button type="submit" class="signup-login-button">Create New Account</button>	
+				<button type="submit" id='signup-events-page' class="signup-login-button">Create New Account</button>	
 			</fieldset>
 			<div class="already-member">
 				<p>Already a member? <a id="login-form-signup-trigger" href="#">Sign In</a></p>
@@ -150,7 +150,7 @@
 			<!-- Artist Search Results -->
 			<div class='events-row my-results'>
 				<div class='col-12 my-results-header'>
-					<h1>Upcoming Performances by Alesso<h1>
+					<h1>Upcoming Performances<h1>
 				</div>
 			</div>	
 			<div class='my-search-results-container'>
