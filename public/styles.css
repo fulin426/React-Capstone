@@ -65,6 +65,30 @@ nav {
 	height: 550px;
 }
 
+.log-in	{
+	line-height: 460px;
+}
+
+.not-member-text {
+    color: white;
+ 	font-weight: bold;
+    font-size: 22px;
+    height: 39px;
+}
+
+.log-in-button {
+    height: 72px;
+    font-size: 48px;
+    width: 190px;
+    padding: 8px;
+}
+
+/*.login-getstarted-wrapper{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}*/
+
 .landing-header {
 	line-height: 250px;
 	font-size: 32px;
@@ -158,7 +182,6 @@ button {
 	font-size: 22px;
 	padding: 5px;
 	border-radius: 3px;
-	/*background-color: #edeff0;*/
 	margin-bottom: 25px;
 }
 
