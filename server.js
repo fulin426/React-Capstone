@@ -150,6 +150,7 @@ app.post('/users/login', function (req, res) {
 // POST -----------------------------------------
 // creating a new event
 app.post('/event/create', (req, res) => {
+    let user = req.body.user;
     let date = req.body.date;
     let time = req.body.time;
     let venueName = req.body.venueName;
@@ -159,6 +160,7 @@ app.post('/event/create', (req, res) => {
     let venueurl = req.body.venueurl;
     
         EventDetail.create({
+            user,
             date,
             time,
             venueName,

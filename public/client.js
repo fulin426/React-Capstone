@@ -283,8 +283,10 @@ $('.my-search-results-container').on('click', '.fa-plus-square', function(event)
     const newCity = $(event.target).closest('.my-events').find('.event-city').text();
     const newVenueURL = $(event.target).closest('.my-events').find('.url-venue').attr('href');
     const newEventURL = $(event.target).closest('.my-events').find('.url-event').attr('href');
+    const loggedInUser = $('.loggedin-user').val();
     
     const newEventObject = {
+        user: loggedInUser,
         date: newDate,
         time: newTime,
         venueName: newVenueName,

@@ -3,6 +3,9 @@
 const mongoose = require('mongoose');
 
 const eventDetailSchema = new mongoose.Schema({
+    user: {
+        type: String,
+        required: false},
     date: {
         type: String,
         required: false},
