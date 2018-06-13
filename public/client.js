@@ -328,7 +328,7 @@ function displayMyEvents(loggedInUser) {
              let buildTable = '';             
                 $.each(result, function (resulteKey, resulteValue) {
                     buildTable += '<div class="events-row my-events">';
-                    buildTable += '<input type="hidden" name="event-id" class="event-id" value="' + resulteValue._id + '">';
+                    buildTable += `<input type="hidden" name="event-id" class="event-id" value="${resulteValue._id}">`;
                     buildTable += '<div class="col-3 date-time">';
                     buildTable += `<p class="event-date">${resulteValue.date}</p>`;
                     buildTable += `<p class="event-time">${ifNull(resulteValue.time)}</p>`;
@@ -356,7 +356,8 @@ function displayMyEvents(loggedInUser) {
 $('.my-saved-events-container').on('click', '.delete-button', function(event) {
     event.preventDefault();
     const loggedInUser = $('.loggedin-user').val();
-    let eventId = $(event.target).closest('.results-item').find('.event-id').val();
+    let eventId = $(event.target).closest('.my-events').find('.event-id').val();
+    console.log(eventId);
     $.ajax({
         type: 'DELETE',
         url: `/event/delete/${eventId}`
