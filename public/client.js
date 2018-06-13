@@ -176,9 +176,50 @@ $('#get-started-trigger').on('click', event => {
 //log into events page
 $('#login-events-page').on('click', event => {
   event.preventDefault();
-    $('section').hide();
-    $('footer').hide();
-    $('#my-events-page').show();
+    //take the input from the user
+    const email = $('#login-email').val();
+    const password = $('#login-password').val();
+        //validate the input
+        if (email === '') {
+            alert('Please Add Valid Email');
+        } else if (password === '') {
+            alert('Please Add Valid Password');
+        } 
+
+        //if the input is valid
+        else {
+            //create a login user object
+            const loginUserObject = {
+                email: email,
+                password: password
+            };
+            // send the user object to the api call
+            $.ajax({
+                type: 'POST',
+                url: '/users/login',
+                dataType: 'json',
+                data: JSON.stringify(loginUserObject),
+                contentType: 'application/json'
+            })
+            //if the api call is succefull
+            .done(function (result) {
+                //display the results
+                console.log(result);          
+                //hide all the sections
+                $('section').hide();
+                $('footer').hide();
+                //show events page
+                $('#my-events-page').show();
+                $('.loggedin-user').val(result.email);
+            })
+            //if the api call is NOT succefull
+            .fail(function (jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+                alert('Please Check Username and Password');
+            });
+        };
 });
 
 $('#signup-events-page').on('click', event => {

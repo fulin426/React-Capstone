@@ -57,15 +57,12 @@ function closeServer() {
 // POST -----------------------------------
 // creating a new user
 app.post('/users/create', (req, res) => {
-
     //take the email and password from the user obejct from client.js
     let email = req.body.email;    
     let password = req.body.password;
-
     //exclude spaces
     email = email.trim();
     password = password.trim();
-
     //create a new encryption key (salt)
     bcrypt.genSalt(10, (err, salt) => {
         if (err) {
@@ -103,29 +100,23 @@ app.post('/users/create', (req, res) => {
         });
     });
 });
-
 // signing in a user
 app.post('/users/login', function (req, res) {
-
     //take the email and password from the user object from client.js
     const email = req.body.email;
     const password = req.body.password;
-
     //find if the user is in the database
     User
         .findOne({
             email: req.body.email
         }, function(err, items) {
-
             //if the user is not found
             if (err) {
-
                 //display an error
                 return res.status(500).json({
                     message: "Internal server error"
                 });
             }
-
             //if the are no items
             if (!items) {
                 // bad username
@@ -133,25 +124,20 @@ app.post('/users/login', function (req, res) {
                     message: "Not found!"
                 });
             } 
-
             //if the user is found
             else {
-
                 //validate the password
                 items.validatePassword(req.body.password, function(err, isValid) {
-
                     //if password validation is not working
                     if (err) {
                         console.log('There was an error validating the password.');
                     }
-
                     //if the password is not valid
                     if (!isValid) {
                         return res.status(401).json({
                             message: "Not found"
                         });
                     } 
-
                     //if the password is valid
                     else {
                         return res.json(items);

@@ -8,7 +8,10 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
 <body>
-<nav>Upcoming</nav>
+<nav>
+	<h1>Upcoming</h1>
+	<h2 class='loggedin-user'></h2>
+</nav>
 <main>
 	<section id='landing-page'>	
 		<div class='landing-image-container'>
@@ -59,9 +62,9 @@
 				<p>Demo password: demo</p>
 				<div class="labels-inputs-container">
 					<label class="signup-pass-label">Email:</label>
-					<input class="email-password-input" type="email" placeholder="e.g., demo@demo.com" required value="" />
+					<input class="email-password-input" id='login-email' type="email" placeholder="e.g., demo@demo.com" required value="" />
 					<label class="signup-pass-label">Password:</label>
-					<input class="email-password-input" type="password" placeholder="e.g., demo-password"  required value=""/>
+					<input class="email-password-input" id='login-password' type="password" placeholder="e.g., demo-password"  required value=""/>
 				</div>
 
 				<button type="submit" id='login-events-page'class="signup-login-button">Log In</button>	
@@ -195,8 +198,8 @@
 						<p>99 Grove St, San Francisco, CA 94102</p>
 						<p><a href='#'>Map it</a>
 					</div> -->
-					<div class='col-3 event-add-button'>
-						<p id='add-event-trigger'><i class="fas fa-plus-square fa-2x"></i></p>	
+<!-- 					<div class='col-3 event-add-button'>
+						<p id='add-event-trigger'><i class="fas fa-plus-square fa-2x"></i></p> -->	
 					</div>	
 				</div>
 			</div>	
