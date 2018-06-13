@@ -210,6 +210,7 @@ $('#login-events-page').on('click', event => {
                 //show events page
                 $('#my-events-page').show();
                 $('.loggedin-user').val(result.email);
+                displayMyEvents(result.email);
             })
             //if the api call is NOT succefull
             .fail(function (jqXHR, error, errorThrown) {
@@ -304,10 +305,55 @@ $('.my-search-results-container').on('click', '.fa-plus-square', function(event)
     })
     .done(function(result) {
       console.log(result);
+      displayMyEvents(result.user);
     })
     .fail(function (jqXHR, error, errorThrown) {
         console.log(jqXHR);
         console.log(error);
         console.log(errorThrown);
     });
+    $(event.target).closest('.my-events').hide();
   });
+
+function displayMyEvents(loggedInUser) {
+    let result = $.ajax({
+                /* update API end point */
+                url: "/asset/get/"+ loggedInUser,
+                dataType: "json",
+                type: "GET"
+            })
+            .done(function (result) {  
+            console.log(result);
+             let buildTable = '';             
+                $.each(result, function (resulteKey, resulteValue) {
+                    buildTable += '<div class="events-row my-events">';
+                    buildTable += '<div class="col-3 date-time">';
+                    buildTable += `<p class="event-date">${resulteValue.date}</p>`;
+                    buildTable += `<p class="event-time">${ifNull(resulteValue.time)}</p>`;
+                    buildTable += '</div>';
+                    buildTable += '<div class="col-6 event-info">';
+                    buildTable += `<p class="event-name"><a href="${resulteValue.eventurl}" class="url-event">${resulteValue.eventName}</a></p>`;
+                    buildTable += `<p class="event-venue-name"><a href="${resulteValue.venueurl}" class="url-venue">${resulteValue.venueName}</a></p>`;
+                    buildTable += `<p class="event-city">${resulteValue.city}</p>`;
+                    buildTable += '</div>';
+                    buildTable += '<div class="col-3 event-add-button">';
+                    buildTable += '<p id="add-event-trigger"><i class="fas fa-trash-alt fa-2x"></i></p> ';
+                    buildTable += '</div>';
+                    buildTable += '</div>';
+                });
+                $('.my-saved-events-container').html(buildTable);
+            })
+            /* if the call is NOT successful show errors */
+            .fail(function (jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+            });
+}
+
+             
+          
+            
+            
+
+

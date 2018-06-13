@@ -182,7 +182,7 @@ app.post('/event/create', (req, res) => {
 
 // ACCESING A SINGLE ASSET BY ID
 app.get('/asset/get/:user', function (req, res) {
-    Asset.find({
+    EventDetail.find({
             user: req.params.user
         }, (err, asset) => {
             if (err) {
@@ -194,7 +194,7 @@ app.get('/asset/get/:user', function (req, res) {
 
 // DELETE ----------------------------------------
 app.delete('/asset/delete/:id', function(req, res) {
-    Asset.findByIdAndRemove(req.params.id).exec().then(function(asset) {
+    EventDetail.findByIdAndRemove(req.params.id).exec().then(function(asset) {
         console.log(`Deleted asset item ${req.params.id}`);
         return res.status(204).end();
     }).catch(function(err) {
