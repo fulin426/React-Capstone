@@ -140,10 +140,10 @@ function ifNull(time) {
 }
 
 //Triggers
-/*$(document).ready(function () {
+$(document).ready(function () {
   $('section').hide();
   $('#landing-page').show();
-});*/
+});
 //Landing Page Log In
 $('#login-trigger').on('click', event => {
   event.preventDefault();
@@ -156,6 +156,7 @@ $('#get-started-trigger').on('click', event => {
   event.preventDefault();
     $('section').hide();
     $('footer').hide();
+    $('#login-page').hide();
     $('#sign-up-page').show();
 });
 //Not a Member? Sign Up
@@ -166,7 +167,7 @@ $('#login-form-signup-trigger').on('click', event => {
     $('#sign-up-page').show();
 });
 //Already a member? Sign in
-$('#get-started-trigger').on('click', event => {
+$('#login-form-login-trigger').on('click', event => {
   event.preventDefault();
     $('section').hide();
     $('footer').hide();
@@ -318,7 +319,7 @@ $('.my-search-results-container').on('click', '.fa-plus-square', function(event)
 function displayMyEvents(loggedInUser) {
     let result = $.ajax({
                 /* update API end point */
-                url: "/asset/get/"+ loggedInUser,
+                url: "/event/get/"+ loggedInUser,
                 dataType: "json",
                 type: "GET"
             })
@@ -327,6 +328,7 @@ function displayMyEvents(loggedInUser) {
              let buildTable = '';             
                 $.each(result, function (resulteKey, resulteValue) {
                     buildTable += '<div class="events-row my-events">';
+                    buildTable += '<input type="hidden" name="event-id" class="event-id" value="' + resulteValue._id + '">';
                     buildTable += '<div class="col-3 date-time">';
                     buildTable += `<p class="event-date">${resulteValue.date}</p>`;
                     buildTable += `<p class="event-time">${ifNull(resulteValue.time)}</p>`;
@@ -336,8 +338,8 @@ function displayMyEvents(loggedInUser) {
                     buildTable += `<p class="event-venue-name"><a href="${resulteValue.venueurl}" class="url-venue">${resulteValue.venueName}</a></p>`;
                     buildTable += `<p class="event-city">${resulteValue.city}</p>`;
                     buildTable += '</div>';
-                    buildTable += '<div class="col-3 event-add-button">';
-                    buildTable += '<p id="add-event-trigger"><i class="fas fa-trash-alt fa-2x"></i></p> ';
+                    buildTable += '<div class="col-3 event-delete-button">';
+                    buildTable += '<p id="delete-event-trigger" class="delete-button"><i class="fas fa-trash-alt fa-2x"></i></p> ';
                     buildTable += '</div>';
                     buildTable += '</div>';
                 });
@@ -350,7 +352,24 @@ function displayMyEvents(loggedInUser) {
                 console.log(errorThrown);
             });
 }
-
+//delete event
+$('.my-saved-events-container').on('click', '.delete-button', function(event) {
+    event.preventDefault();
+    const loggedInUser = $('.loggedin-user').val();
+    let eventId = $(event.target).closest('.results-item').find('.event-id').val();
+    $.ajax({
+        type: 'DELETE',
+        url: `/event/delete/${eventId}`
+    })
+    .done(function (result) {
+            displayMyEvents(loggedInUser);
+        })
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+});
              
           
             

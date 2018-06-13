@@ -180,22 +180,22 @@ app.post('/event/create', (req, res) => {
         });
 });
 
-// ACCESING A SINGLE ASSET BY ID
-app.get('/asset/get/:user', function (req, res) {
+// ACCESING A SINGLE event BY ID
+app.get('/event/get/:user', function (req, res) {
     EventDetail.find({
             user: req.params.user
-        }, (err, asset) => {
+        }, (err, event) => {
             if (err) {
                 res.send(err)
             }
-            res.json(asset)
+            res.json(event)
     })
 });
 
 // DELETE ----------------------------------------
-app.delete('/asset/delete/:id', function(req, res) {
-    EventDetail.findByIdAndRemove(req.params.id).exec().then(function(asset) {
-        console.log(`Deleted asset item ${req.params.id}`);
+app.delete('/event/delete/:id', function(req, res) {
+    EventDetail.findByIdAndRemove(req.params.id).exec().then(function(event) {
+        console.log(`Deleted event item ${req.params.id}`);
         return res.status(204).end();
     }).catch(function(err) {
         return res.status(500).json({

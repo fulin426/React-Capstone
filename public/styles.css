@@ -275,8 +275,8 @@ footer{
 	text-align: right;
 }
 
-.event-info {
-
+.delete-button {
+	float: right;
 }
 
 .event-add-button {
