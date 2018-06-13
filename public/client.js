@@ -183,9 +183,47 @@ $('#login-events-page').on('click', event => {
 
 $('#signup-events-page').on('click', event => {
   event.preventDefault();
-    $('section').hide();
-    $('footer').hide();
-    $('#my-events-page').show();
+    const email = $('#signup-email').val();
+    const password = $('#signup-password').val();
+        //validate the input
+        if (email === '') {
+            alert('Please Add Valid Email');
+        } else if (password === '') {
+            alert('Please Add Valid Password');
+        } 
+        //if the input is valid
+        else {
+            //create a new user object
+            const newUserObject = {
+                email: email,
+                password: password
+            };
+            // send the user object to the api call
+            $.ajax({
+                type: 'POST',
+                url: '/users/create',
+                dataType: 'json',
+                data: JSON.stringify(newUserObject),
+                contentType: 'application/json'
+            })
+            //if the api call is succefull
+            .done(function (result) {
+                //display the results
+                alert(`${result.email} created`);               
+                //hide all the sections
+                $('section').hide();
+                $('footer').hide();
+                //show events page only
+                $('#my-events-page').show();
+            })
+            //if the api call is NOT succefull
+            .fail(function (jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+            });
+        };
+
 });
 
 //Search for Artist

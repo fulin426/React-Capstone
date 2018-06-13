@@ -1,4 +1,4 @@
-/*const User = require('./models/user');*/
+const User = require('./models/user');
 /*const Achievement = require('./models/achievement');*/
 /*const Asset = require('./models/asset');*/
 const bodyParser = require('body-parser');
@@ -81,13 +81,11 @@ app.post('/users/create', (req, res) => {
                     message: 'Internal server error'
                 });
             }
-        
         //after the password is encrypted; send it to the database
         User.create({
             email,
             password: hash,
         }, (err, item) => {
-
             //if the database connection is NOT succesfull
             if (err) {
                 //show error
@@ -95,7 +93,6 @@ app.post('/users/create', (req, res) => {
                     message: 'Internal Server Error'
                 });
             }
-
             //if the database connection is succesfull
             if (item) {
                 //show results
