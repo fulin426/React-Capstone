@@ -1,18 +1,3 @@
-//https://www.google.com/maps/search/?api=1&query=99+Grove+Street
-
-//Upcoming Events Calendar
-//https://api.songkick.com/api/3.0/artists/{artist_id}/calendar.json?apikey={your_api_key}
-//displayName "Alesso" id: 4329851
-
-//Artist Search
-//https://api.songkick.com/api/3.0/search/artists.json?apikey={your_api_key}&query={artist_name}
-
-//Venue Search
-//https://api.songkick.com/api/3.0/venues/{venue_id}.json?apikey={your_api_key}
-
-//Similar Artists
-//https://api.songkick.com/api/3.0/artists/{artist_id}/similar_artists.json?apikey={your_api_key}
-
 const API_Key ='BNciuRNtRNFoYYJG';
 
 function getArtistData (searchTerm) {
@@ -51,7 +36,7 @@ function getCalendarData(artistID) {
   $.ajax(settings);
 }
 
-function getVenueData (data) {
+/*function getVenueData (data) {
     let settings = {
     url:`https://api.songkick.com/api/3.0/venues/${data.resultsPage.results.event[0].venue.id}.json?apikey=${API_Key}`,
     dataType: 'json',
@@ -74,7 +59,7 @@ function getVenueData (data) {
   };
   $.ajax(settings);
 }
-
+*/
 function displaySearchResults(data) {
  return `   
         <div class='events-row my-events'>      
@@ -307,13 +292,14 @@ $('.my-search-results-container').on('click', '.fa-plus-square', function(event)
     .done(function(result) {
       console.log(result);
       displayMyEvents(result.user);
+      $(event.target).closest('.my-events').hide();
     })
     .fail(function (jqXHR, error, errorThrown) {
         console.log(jqXHR);
         console.log(error);
         console.log(errorThrown);
     });
-    $(event.target).closest('.my-events').hide();
+    ;
   });
 
 function displayMyEvents(loggedInUser) {
