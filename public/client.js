@@ -79,14 +79,13 @@ function displaySearchResults(data) {
  return `   
         <div class='events-row my-events'>      
           <div class='col-3 date-time'>
-            <p>${formateDate(data.start.date)}</p>
-            <p>${ifNull(data.start.time)}</p>
+            <p class='event-date'>${formateDate(data.start.date)}</p>
+            <p class='event-time'>${ifNull(data.start.time)}</p>
           </div>
           <div class='col-6 event-info'>
-            <p><a href='${data.uri}'>${splitEventName(data.displayName)}</a></p>
-            <p><a href='${data.venue.uri}'>${data.venue.displayName}</a></p>
-            <p>${data.location.city}</p>
-            <p><a href='#'></a>
+            <p class='event-name'><a href='${data.uri}' class='url-event'>${splitEventName(data.displayName)}</a></p>
+            <p class='event-venue-name'><a href='${data.venue.uri}' class='url-venue'>${data.venue.displayName}</a></p>
+            <p class='event-city'>${data.location.city}</p>
           </div>
           <div class='col-3 event-add-button'>
             <p id='add-event-trigger'><i class="fas fa-plus-square fa-2x"></i></p>  
@@ -273,3 +272,40 @@ $('.events-search-button').on('click', event => {
   let artist = $('.events-search-bar').val();
   getArtistData (artist);
 });
+
+//add event
+$('.my-search-results-container').on('click', '.fa-plus-square', function(event) {
+    event.preventDefault();
+    const newDate = $(event.target).closest('.my-events').find('.event-date').text();
+    const newTime = $(event.target).closest('.my-events').find('.event-time').text();
+    const newVenueName = $(event.target).closest('.my-events').find('.event-venue-name').text();
+    const newEventName = $(event.target).closest('.my-events').find('.event-name').text();
+    const newCity = $(event.target).closest('.my-events').find('.event-city').text();
+    const newVenueURL = $(event.target).closest('.my-events').find('.url-venue').attr('href');
+    const newEventURL = $(event.target).closest('.my-events').find('.url-event').attr('href');
+    
+    const newEventObject = {
+        date: newDate,
+        time: newTime,
+        venueName: newVenueName,
+        eventName: newEventName,
+        city: newCity,
+        eventurl: newEventURL,
+        venueurl: newVenueURL
+    };
+    $.ajax({
+        type: 'POST',
+        url: '/event/create',
+        dataType: 'json',
+        data: JSON.stringify(newEventObject),
+        contentType: 'application/json'
+    })
+    .done(function(result) {
+      console.log(result);
+    })
+    .fail(function (jqXHR, error, errorThrown) {
+        console.log(jqXHR);
+        console.log(error);
+        console.log(errorThrown);
+    });
+  });

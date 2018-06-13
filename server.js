@@ -1,6 +1,6 @@
 const User = require('./models/user');
 /*const Achievement = require('./models/achievement');*/
-const EventDetail = require('./models/eventDetail');
+const EventDetail = require('./models/eventDetails');
 const bodyParser = require('body-parser');
 const config = require('./config');
 const mongoose = require('mongoose');
@@ -148,20 +148,24 @@ app.post('/users/login', function (req, res) {
 });
 
 // POST -----------------------------------------
-// creating a new asset
-app.post('/asset/create', (req, res) => {
+// creating a new event
+app.post('/event/create', (req, res) => {
     let date = req.body.date;
     let time = req.body.time;
-    let url = req.body.url;
+    let venueName = req.body.venueName;
     let eventName = req.body.eventName;
     let city = req.body.city;
+    let eventurl = req.body.eventurl;
+    let venueurl = req.body.venueurl;
     
         EventDetail.create({
             date,
             time,
-            url,
+            venueName,
             eventName,
-            city
+            city,
+            eventurl,
+            venueurl
         }, (err, item) => {
             if (err) {
                 return res.status(500).json({
