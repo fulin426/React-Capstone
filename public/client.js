@@ -13,7 +13,7 @@
 //Similar Artists
 //https://api.songkick.com/api/3.0/artists/{artist_id}/similar_artists.json?apikey={your_api_key}
 
-const API_Key ='mtLUgpC0c49wQgiQ';
+const API_Key ='BNciuRNtRNFoYYJG';
 
 function getArtistData (searchTerm) {
     let settings = {
@@ -145,14 +145,14 @@ function ifNull(time) {
   $('section').hide();
   $('#landing-page').show();
 });*/
-//Log In
+//Landing Page Log In
 $('#login-trigger').on('click', event => {
   event.preventDefault();
     $('section').hide();
     $('footer').hide();
     $('#login-page').show();
 });
-//Sign Up
+//Landing Page Sign Up
 $('#get-started-trigger').on('click', event => {
   event.preventDefault();
     $('section').hide();
@@ -221,7 +221,7 @@ $('#login-events-page').on('click', event => {
             });
         };
 });
-
+//sign up new account
 $('#signup-events-page').on('click', event => {
   event.preventDefault();
     const email = $('#signup-email').val();

@@ -1,6 +1,6 @@
 const User = require('./models/user');
 /*const Achievement = require('./models/achievement');*/
-/*const Asset = require('./models/asset');*/
+const EventDetail = require('./models/eventDetail');
 const bodyParser = require('body-parser');
 const config = require('./config');
 const mongoose = require('mongoose');
@@ -150,16 +150,18 @@ app.post('/users/login', function (req, res) {
 // POST -----------------------------------------
 // creating a new asset
 app.post('/asset/create', (req, res) => {
-    let name = req.body.name;
-    let value = req.body.value;
-    let target = req.body.target;
-    let user = req.body.user;
+    let date = req.body.date;
+    let time = req.body.time;
+    let url = req.body.url;
+    let eventName = req.body.eventName;
+    let city = req.body.city;
     
-        Asset.create({
-            name,
-            value,
-            target,
-            user
+        EventDetail.create({
+            date,
+            time,
+            url,
+            eventName,
+            city
         }, (err, item) => {
             if (err) {
                 return res.status(500).json({
@@ -171,29 +173,6 @@ app.post('/asset/create', (req, res) => {
             }
         });
 });
-
-// PUT --------------------------------------
-app.put('/asset/:id', function (req, res) {
-    let toUpdate = {};
-    let updateableFields = ['name', 'value', 'target',];
-    updateableFields.forEach(function(field) {
-        if (field in req.body) {
-            toUpdate[field] = req.body[field];
-        }
-    });
-    Asset
-        .findByIdAndUpdate(req.params.id, {
-            $set: toUpdate
-        }).exec().then(function(asset) {
-            return res.status(204).end();
-        }).catch(function(err) {
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        });
-});
-
-
 
 // ACCESING A SINGLE ASSET BY ID
 app.get('/asset/get/:user', function (req, res) {
