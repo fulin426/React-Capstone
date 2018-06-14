@@ -33,9 +33,7 @@ function getCalendarData(artistID) {
         }
       },
       error: function() {
-        $('.my-search-results-container').prop('hidden', false).html("<div class='error_result'><p>Sorry! No Results Found.</p></div>");
-      //venue ID
-      console.log(data.resultsPage.results.event[0].venue.id);
+        $('.my-search-results-container').prop('hidden', false).html(errorMsg);
     },
   };
   $.ajax(settings);
@@ -49,8 +47,8 @@ function displaySearchResults(data) {
             <p class='event-time'>${ifNull(data.start.time)}</p>
           </div>
           <div class='col-6 event-info'>
-            <p class='event-name'><a href='${data.uri}' class='url-event'>${splitEventName(data.displayName)}</a></p>
-            <p class='event-venue-name'><a href='${data.venue.uri}' class='url-venue'>${data.venue.displayName}</a></p>
+            <p class='event-name'><a href='${data.uri}' class='url-event' target="_blank">${splitEventName(data.displayName)}</a></p>
+            <p class='event-venue-name'><a href='${data.venue.uri}' class='url-venue' target="_blank">${data.venue.displayName}</a></p>
             <p class='event-city'>${data.location.city}</p>
           </div>
           <div class='col-3 event-add-button'>
@@ -63,12 +61,6 @@ const Event_Name = 'Alesso at XS Nightclub, the Wynn (June 16, 2018)';
 function splitEventName(eventName)  {
   const splits = eventName.split('(',2);
   return splits[0];
-}
-
-function splitDate(eventName)  {
-  const splits = eventName.split('(',2);
-  const date = splits[1].split(')',2)
-  return date[0];
 }
 
 function formateDate(data) {
@@ -114,14 +106,12 @@ $(document).ready(function () {
 $('#login-trigger').on('click', event => {
   event.preventDefault();
     $('section').hide();
-    $('footer').hide();
     $('#login-page').show();
 });
 //Landing Page Sign Up
 $('#get-started-trigger').on('click', event => {
   event.preventDefault();
     $('section').hide();
-    $('footer').hide();
     $('#login-page').hide();
     $('#sign-up-page').show();
 });
@@ -129,14 +119,12 @@ $('#get-started-trigger').on('click', event => {
 $('#login-form-signup-trigger').on('click', event => {
   event.preventDefault();
     $('section').hide();
-    $('footer').hide();
     $('#sign-up-page').show();
 });
 //Already a member? Sign in
 $('#login-form-login-trigger').on('click', event => {
   event.preventDefault();
     $('section').hide();
-    $('footer').hide();
     $('#login-page').show();
 });
 //log into events page
@@ -173,7 +161,6 @@ $('#login-events-page').on('click', event => {
                 console.log(result);          
                 //hide all the sections
                 $('section').hide();
-                $('footer').hide();
                 $('.my-results-header').hide();
                 //show events page
                 $('#my-events-page').show();
@@ -221,7 +208,6 @@ $('#signup-events-page').on('click', event => {
                 alert(`${result.email} created`);               
                 //hide all the sections
                 $('section').hide();
-                $('footer').hide();
                 //show events page only
                 $('#my-events-page').show();
             })
@@ -303,8 +289,8 @@ function displayMyEvents(loggedInUser) {
                     buildTable += `<p class="event-time">${ifNull(resulteValue.time)}</p>`;
                     buildTable += '</div>';
                     buildTable += '<div class="col-6 event-info">';
-                    buildTable += `<p class="event-name"><a href="${resulteValue.eventurl}" class="url-event">${resulteValue.eventName}</a></p>`;
-                    buildTable += `<p class="event-venue-name"><a href="${resulteValue.venueurl}" class="url-venue">${resulteValue.venueName}</a></p>`;
+                    buildTable += `<p class="event-name"><a href="${resulteValue.eventurl}" class="url-event" target="_blank">${resulteValue.eventName}</a></p>`;
+                    buildTable += `<p class="event-venue-name"><a href="${resulteValue.venueurl}" class="url-venue" target="_blank">${resulteValue.venueName}</a></p>`;
                     buildTable += `<p class="event-city">${resulteValue.city}</p>`;
                     buildTable += '</div>';
                     buildTable += '<div class="col-3 event-delete-button">';

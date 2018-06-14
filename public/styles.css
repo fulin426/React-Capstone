@@ -258,6 +258,22 @@ footer{
 	background: #E0E0E0;
 }
 
+.my-results-header, .my-results {
+	padding-left: 1px;
+	padding-right: 0;
+}
+
+#search-header {
+	float:left;
+}
+
+.songkick_logo {
+	width: 100px;
+	float: right;
+	padding-left: 0;
+	padding-right: 0;
+}
+
 .fa-plus-square, .fa-trash-alt {
 	cursor: pointer;
 }
