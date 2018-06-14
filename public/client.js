@@ -14,6 +14,11 @@ function getArtistData (searchTerm) {
 }
 
 function getCalendarData(artistID) {
+  const errorMsg = `   
+        <div class='events-row my-events' id='error-message'>      
+          <p>No Results Found. Please try a different artist.</p>
+        </div>`;  
+
   let settings = {
     url:`https://api.songkick.com/api/3.0/artists/${artistID}/calendar.json?apikey=${API_Key}`,
     dataType: 'json',
@@ -24,7 +29,7 @@ function getCalendarData(artistID) {
         let searchResults = data.resultsPage.results.event.map((item, index) => displaySearchResults(item));
       $('.my-search-results-container').html(searchResults);
       } catch (error) {
-        $('.my-search-results-container').prop('hidden', false).html("<div class='error_result'><p>Sorry! No Results Found.</p></div>");
+        $('.my-search-results-container').prop('hidden', false).html(errorMsg);
         }
       },
       error: function() {
@@ -36,30 +41,6 @@ function getCalendarData(artistID) {
   $.ajax(settings);
 }
 
-/*function getVenueData (data) {
-    let settings = {
-    url:`https://api.songkick.com/api/3.0/venues/${data.resultsPage.results.event[0].venue.id}.json?apikey=${API_Key}`,
-    dataType: 'json',
-    type: 'GET',
-    success: data => {
-      console.log(data);
-      //Venue Name
-      console.log(data.resultsPage.results.venue.displayName);
-      //Street
-      console.log(data.resultsPage.results.venue.street);
-      //City
-      console.log(data.resultsPage.results.venue.city.displayName);
-      //State
-      console.log(data.resultsPage.results.venue.city.state.displayName);
-      //Zip
-      console.log(data.resultsPage.results.venue.zip);
-      //Venue Link
-      console.log(data.resultsPage.results.venue.website);
-    },
-  };
-  $.ajax(settings);
-}
-*/
 function displaySearchResults(data) {
  return `   
         <div class='events-row my-events'>      
@@ -193,6 +174,7 @@ $('#login-events-page').on('click', event => {
                 //hide all the sections
                 $('section').hide();
                 $('footer').hide();
+                $('.my-results-header').hide();
                 //show events page
                 $('#my-events-page').show();
                 $('.loggedin-user').val(result.email);
@@ -258,6 +240,7 @@ $('.events-search-button').on('click', event => {
   event.preventDefault();
   let artist = $('.events-search-bar').val();
   getArtistData (artist);
+  $('.my-results-header').show();
 });
 
 //add event

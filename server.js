@@ -1,5 +1,4 @@
 const User = require('./models/user');
-/*const Achievement = require('./models/achievement');*/
 const EventDetail = require('./models/eventDetails');
 const bodyParser = require('body-parser');
 const config = require('./config');
@@ -70,7 +69,6 @@ app.post('/users/create', (req, res) => {
                 message: 'Internal server error'
             });
         }
-
         //with the new key, encrypt the current password
         bcrypt.hash(password, salt, (err, hash) => {
             if (err) {

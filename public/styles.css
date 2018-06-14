@@ -27,7 +27,6 @@
 
 * {
   box-sizing: border-box;
-/*  	border: 1px solid red;*/
 }
 
 body {
@@ -103,7 +102,7 @@ button {
     font-size: 22px;
     font-weight: bold;
     height: 46px;
-    cursor:pointer;
+    cursor: pointer;
     border: 1px solid #cdd2d4;
 }
 
@@ -257,6 +256,14 @@ footer{
 	border-radius: 3px;
 	margin-bottom: 15px;
 	background: #E0E0E0;
+}
+
+.fa-plus-square, .fa-trash-alt {
+	cursor: pointer;
+}
+
+#error-message {
+	text-align: center;
 }
 
 /* Clearfix */
