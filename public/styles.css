@@ -230,7 +230,7 @@ footer{
 }
 
 .events-search-bar {
-	width: 80%;
+	width: 60%;
 	height: 46px;
 	border: 1px solid #cdd2d4;
 	padding: 5px;
@@ -293,10 +293,6 @@ footer{
   clear: both;
 }
 
-.date-time {
-	text-align: right;
-}
-
 .delete-button {
 	float: right;
 }
@@ -315,3 +311,14 @@ footer{
 	text-align: center;
 	background: white;
 }
+
+/* Non-mobile, grid */
+@media only screen and (min-width: 640px) {
+	
+  .date-time {
+  text-align: right;
+  }
+
+  .events-search-bar {
+  width: 80%;
+  }
