@@ -57,7 +57,6 @@ function displaySearchResults(data) {
         </div>`;
 }
 
-const Event_Name = 'Alesso at XS Nightclub, the Wynn (June 16, 2018)';
 function splitEventName(eventName)  {
   const splits = eventName.split('(',2);
   return splits[0];
@@ -90,6 +89,8 @@ function convertAMPM(time) {
 
 function ifNull(time) {
   if(time == null) {
+    return '';
+  } else if (time =='') {
     return '';
   } else {
     let newTime = convertAMPM(time)
