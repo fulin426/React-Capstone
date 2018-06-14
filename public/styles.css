@@ -52,6 +52,11 @@ nav {
 	padding: 8px;
 }
 
+.nav-title {
+	font-size: 34px;
+}
+
+
 /*Landing Page*/
 .landing-image-container {
 	display: block;
@@ -65,7 +70,7 @@ nav {
 }
 
 .log-in	{
-	line-height: 460px;
+	line-height: 430px;
 }
 
 .not-member-text {
@@ -314,7 +319,7 @@ footer{
 
 /* Non-mobile, grid */
 @media only screen and (min-width: 640px) {
-	
+
   .date-time {
   text-align: right;
   }
@@ -322,3 +327,10 @@ footer{
   .events-search-bar {
   width: 80%;
   }
+
+  .nav-title {
+	font-size: 40px;
+}
+.log-in	{
+	line-height: 460px;
+}
