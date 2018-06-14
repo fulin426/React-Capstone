@@ -226,6 +226,12 @@ footer{
 	text-align: center;
 }
 /*my events page*/
+
+.events-page-container{
+	margin-left: 6px;
+	margin-right: 6px;
+}
+
 .searchbar-button-container {
 	margin: 0 auto;
 	margin-top: 22px;
@@ -256,7 +262,7 @@ footer{
 .events-row {
 	max-width: 690px;
 	padding: 10px 20px;
-	margin: 0 auto;
+	margin: 0px auto;
 	border: 1px solid #cdd2d4;
 	border-radius: 3px;
 	margin-bottom: 15px;
@@ -274,7 +280,7 @@ footer{
 }
 
 .songkick_logo {
-	max-width: 100px;
+	max-width: 90px;
 	float: right;
 	padding-left: 0;
 	padding-right: 0;
