@@ -52,18 +52,20 @@ nav {
 	padding: 8px;
 }
 
+.log-out, .nav-title {
+	display: inline-block;
+	font-size: 22px;
+}
+
 .log-out{
 	float:right;
-	font-size: 34px;
 	cursor: pointer;
+	line-height: 64px;
 }
 
-.nav-title {
-	display: inline-block;
-	font-size: 34px;
+.log-out:hover { 
+   color: #f4dc0b;
 }
-
-
 /*Landing Page*/
 .landing-image-container {
 	display: block;
@@ -93,12 +95,6 @@ nav {
     width: 190px;
     padding: 8px;
 }
-
-/*.login-getstarted-wrapper{
-	display: flex;
-    align-items: center;
-    justify-content: center;
-}*/
 
 .landing-header {
 	line-height: 250px;
@@ -367,9 +363,16 @@ width: 100%;
 .nav-title {
 	font-size: 40px;
 }
+
 .log-in	{
 	line-height: 460px;
 }
+
 #search-header {
 	font-size: 22px;
+}
+
+.log-out {
+	font-size: 26px;
+	line-height: 58px;
 }
