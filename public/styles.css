@@ -262,6 +262,7 @@ footer{
 
 .artist-edit-input {
 	border: 1px solid #cdd2d4;
+	width: 100%;
 }
 
 .events-search-bar {

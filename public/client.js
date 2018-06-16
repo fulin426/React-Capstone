@@ -140,8 +140,7 @@ $('#login-events-page').on('click', event => {
             alert('Please Add Valid Email');
         } else if (password === '') {
             alert('Please Add Valid Password');
-        } 
-
+        }
         //if the input is valid
         else {
             //create a login user object
@@ -256,8 +255,8 @@ $('.artist-edit').on('click', event => {
 $('.edit-artist-proceed').on('click', event => {
   event.preventDefault();
     const loggedInUser = $('.loggedin-user').val();
-    const newName = $(event.target).closest('.').find('.').val();
-    const newTarget = $(event.target).closest('.').find('.').val();
+    $(event.target).closest('.').find('.').val();
+    $(event.target).closest('.').find('.').val();
     let assetId = $(event.target).closest('.').find('.').val();
     
         const editAssetObject = {       
