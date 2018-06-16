@@ -101,6 +101,7 @@ function ifNull(time) {
 //Triggers
 $(document).ready(function () {
   $('section').hide();
+  $('.log-out').hide();
   $('#landing-page').show();
 });
 //Landing Page Log In
@@ -166,6 +167,7 @@ $('#login-events-page').on('click', event => {
                 $('.artist-edit-input-container').hide();
                 //show events page
                 $('#my-events-page').show();
+                $('.log-out').show();
                 $('.loggedin-user').val(result.email);
                 displayMyEvents(result.email);
             })
@@ -212,6 +214,7 @@ $('#signup-events-page').on('click', event => {
                 $('section').hide();
                 $('.artist-edit-input-container').hide();
                 //show events page only
+                $('.log-out').show();
                 $('#my-events-page').show();
                 //create favorite artists object
                 createFavArtistsObject();
@@ -224,6 +227,12 @@ $('#signup-events-page').on('click', event => {
             });
         };
 });
+
+//log-out
+$('.log-out').on('click', event => {
+  event.preventDefault();
+    location.reload();
+})
 
 //Favorite Artist Trigger
 $('.artist-trigger').on('click', event => {

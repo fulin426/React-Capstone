@@ -52,7 +52,14 @@ nav {
 	padding: 8px;
 }
 
+.log-out{
+	float:right;
+	font-size: 34px;
+	cursor: pointer;
+}
+
 .nav-title {
+	display: inline-block;
 	font-size: 34px;
 }
 
