@@ -99,10 +99,10 @@ function ifNull(time) {
 }
 
 //Triggers
-$(document).ready(function () {
+/*$(document).ready(function () {
   $('section').hide();
   $('#landing-page').show();
-});
+});*/
 //Landing Page Log In
 $('#login-trigger').on('click', event => {
   event.preventDefault();
@@ -222,6 +222,14 @@ $('#signup-events-page').on('click', event => {
 
 });
 
+//Favorite Artist Trigger
+$('.artist-trigger').on('click', event => {
+  event.preventDefault();
+  const favoriteArtist = $(event.target).text();
+  $('.events-search-bar').val('');
+  $('.events-search-bar').val(favoriteArtist);
+});
+
 //Search for Artist
 $('.events-search-button').on('click', event => {
   event.preventDefault();
@@ -327,6 +335,7 @@ $('.my-saved-events-container').on('click', '.delete-button', function(event) {
             console.log(errorThrown);
         });
 });
+
              
           
             

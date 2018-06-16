@@ -240,6 +240,23 @@ footer{
 	height: 60px;
 }
 
+.search-section {
+/*	border: 1px solid #cdd2d4;*/
+	height: 100%;
+}
+
+/*.favorites-artist-container{
+	display: block;
+}*/
+.artist-trigger, .artist-edit {
+	cursor: pointer;
+}
+
+.fa-edit {
+	display: inline-block;
+	float: right;
+}
+
 .events-search-bar {
 	width: 60%;
 	height: 46px;
@@ -251,6 +268,7 @@ footer{
 
 .events-search-button{
 	display: inline-block;
+	float: right;
 }
 
 .my-events-header{
@@ -332,7 +350,7 @@ text-align: right;
 }
 
 .events-search-bar {
-width: 80%;
+width: 100%;
 }
 
 .nav-title {
