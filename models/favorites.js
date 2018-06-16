@@ -3,6 +3,9 @@
 const mongoose = require('mongoose');
 
 const favoritesSchema = new mongoose.Schema({
+    user: {
+        type: String,
+        required: false},
     favorites1: {
         type: String,
         required: false},
@@ -17,7 +20,7 @@ const favoritesSchema = new mongoose.Schema({
         required: false},
     favorites5: {
         type: String,
-        required: false},
+        required: false}
 });
 
 const Favorites = mongoose.model('favorites', favoritesSchema);

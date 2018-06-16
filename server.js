@@ -180,8 +180,9 @@ app.post('/event/create', (req, res) => {
 });
 
 // POST -----------------------------------------
-// creating a new asset
+// creating a new top5 artist list
 app.post('/event/topartists', (req, res) => {
+    let user = req.body.user;
     let favorites1 = req.body.favorites1;
     let favorites2 = req.body.favorites2;
     let favorites3 = req.body.favorites3;
@@ -189,6 +190,7 @@ app.post('/event/topartists', (req, res) => {
     let favorites5 = req.body.favorites5;
     
         Favorites.create({
+            user,
             favorites1,
             favorites2,
             favorites3,
@@ -205,6 +207,19 @@ app.post('/event/topartists', (req, res) => {
             }
         });
 });
+
+// ACCESING the top 5 artist list BY ID
+app.get('/event/get/:user', function (req, res) {
+    EventDetail.find({
+            user: req.params.user
+        }, (err, event) => {
+            if (err) {
+                res.send(err)
+            }
+            res.json(event)
+    })
+});
+
 
 // ACCESING A SINGLE event BY ID
 app.get('/event/get/:user', function (req, res) {

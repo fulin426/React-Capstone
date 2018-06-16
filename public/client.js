@@ -223,7 +223,6 @@ $('#signup-events-page').on('click', event => {
                 console.log(errorThrown);
             });
         };
-
 });
 
 //Favorite Artist Trigger
@@ -256,13 +255,15 @@ $('.artist-edit-input-container').hide();
 });
 
 function createFavArtistsObject() {
-    const artistOne = $('#artist-1').text('Add Artist Here');
+    const artistOne = $('#artist-1').text();
     const artistTwo = $('#artist-2').text();
     const artistThree = $('#artist-3').text();
     const artistFour = $('#artist-4').text();
     const artistFive = $('#artist-5').text();
+    const loggedInUser = $('.loggedin-user').val();
 
     const newTopFiveObject = {
+        user: loggedInUser,
         favorites1: artistOne,
         favorites2: artistTwo,
         favorites3: artistThree,
@@ -287,7 +288,7 @@ function createFavArtistsObject() {
     });
 }
 
-/*$(createFavArtistsObject)*/;
+$(createFavArtistsObject);
 
 //Search for Artist
 $('.events-search-button').on('click', event => {
