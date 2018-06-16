@@ -99,10 +99,10 @@ function ifNull(time) {
 }
 
 //Triggers
-/*$(document).ready(function () {
+$(document).ready(function () {
   $('section').hide();
   $('#landing-page').show();
-});*/
+});
 //Landing Page Log In
 $('#login-trigger').on('click', event => {
   event.preventDefault();

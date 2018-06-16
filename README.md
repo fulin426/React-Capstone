@@ -6,10 +6,7 @@
 Upcoming Events App is for fans of music events to search for and manage their events in one place. 
 
 ## User Stories
-As a user I should be able to search for upcoming events.
-As a user I should be able to save upcoming events.
-As a user I should be able to view event details.
-As a user I should be able to create a top 5 artists list.
+As a user I should be able to search for upcoming events, to save upcoming events,view event details, and create a top 5 artists list.
 ## Working Prototype
 
 Live preview at https://capstone-upcoming-events.herokuapp.com/
