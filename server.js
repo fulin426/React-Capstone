@@ -1,5 +1,6 @@
 const User = require('./models/user');
 const EventDetail = require('./models/eventDetails');
+const Favorites = require('./models/favorites');
 const bodyParser = require('body-parser');
 const config = require('./config');
 const mongoose = require('mongoose');
@@ -166,6 +167,33 @@ app.post('/event/create', (req, res) => {
             city,
             eventurl,
             venueurl
+        }, (err, item) => {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Internal Server Error'
+                });
+            }
+            if(item) {
+                return res.json(item);
+            }
+        });
+});
+
+// POST -----------------------------------------
+// creating a new asset
+app.post('/event/topartists', (req, res) => {
+    let favorites1 = req.body.favorites1;
+    let favorites2 = req.body.favorites2;
+    let favorites3 = req.body.favorites3;
+    let favorites4 = req.body.favorites4;
+    let favorites5 = req.body.favorites5;
+    
+        Favorites.create({
+            favorites1,
+            favorites2,
+            favorites3,
+            favorites4,
+            favorites5
         }, (err, item) => {
             if (err) {
                 return res.status(500).json({

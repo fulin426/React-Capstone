@@ -163,7 +163,7 @@ $('#login-events-page').on('click', event => {
                 //hide all the sections
                 $('section').hide();
                 $('.my-results-header').hide();
-              /*  $('.artist-edit-input-container').hide();*/
+                $('.artist-edit-input-container').hide();
                 //show events page
                 $('#my-events-page').show();
                 $('.loggedin-user').val(result.email);
@@ -210,8 +210,11 @@ $('#signup-events-page').on('click', event => {
                 alert(`${result.email} created`);               
                 //hide all the sections
                 $('section').hide();
+                $('.artist-edit-input-container').hide();
                 //show events page only
                 $('#my-events-page').show();
+                //create favorite artists object
+                createFavArtistsObject();
             })
             //if the api call is NOT succefull
             .fail(function (jqXHR, error, errorThrown) {
@@ -228,15 +231,16 @@ $('.artist-trigger').on('click', event => {
   event.preventDefault();
   const favoriteArtist = $(event.target).text();
   $('.events-search-bar').val('');
-  $('.events-search-bar').val(favoriteArtist);
+  getArtistData (favoriteArtist);
+  $('.my-results-header').show();
 });
 
 //Favorite Artist edit function Trigger
 $('.artist-edit').on('click', event => {
   event.preventDefault();
-  $('.artist-edit-input-container').show();
+  $('.artist-edit-input-container').hide();
+  $(event.target).closest('.favorites-artist-container').find('.artist-edit-input-container').show();
   const favoriteArtist = $(event.target).closest('.favorites-artist-container').find('.artist-trigger').text();
-  console.log(favoriteArtist);
   $('.artist-edit-input').val('');
   $('.artist-edit-input').val(favoriteArtist);
 });
@@ -250,6 +254,40 @@ $('.edit-artist-cancel').on('click', event => {
   event.preventDefault();
 $('.artist-edit-input-container').hide();
 });
+
+function createFavArtistsObject() {
+    const artistOne = $('#artist-1').text('Add Artist Here');
+    const artistTwo = $('#artist-2').text();
+    const artistThree = $('#artist-3').text();
+    const artistFour = $('#artist-4').text();
+    const artistFive = $('#artist-5').text();
+
+    const newTopFiveObject = {
+        favorites1: artistOne,
+        favorites2: artistTwo,
+        favorites3: artistThree,
+        favorites4: artistFour,
+        favorites5: artistFive
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/event/topartists',
+        dataType: 'json',
+        data: JSON.stringify(newTopFiveObject),
+        contentType: 'application/json'
+    })
+    .done(function(result) {
+        
+    })
+    .fail(function (jqXHR, error, errorThrown) {
+        console.log(jqXHR);
+        console.log(error);
+        console.log(errorThrown);
+    });
+}
+
+/*$(createFavArtistsObject)*/;
 
 //Search for Artist
 $('.events-search-button').on('click', event => {
