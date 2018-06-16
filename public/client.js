@@ -163,6 +163,7 @@ $('#login-events-page').on('click', event => {
                 //hide all the sections
                 $('section').hide();
                 $('.my-results-header').hide();
+              /*  $('.artist-edit-input-container').hide();*/
                 //show events page
                 $('#my-events-page').show();
                 $('.loggedin-user').val(result.email);
@@ -228,6 +229,26 @@ $('.artist-trigger').on('click', event => {
   const favoriteArtist = $(event.target).text();
   $('.events-search-bar').val('');
   $('.events-search-bar').val(favoriteArtist);
+});
+
+//Favorite Artist edit function Trigger
+$('.artist-edit').on('click', event => {
+  event.preventDefault();
+  $('.artist-edit-input-container').show();
+  const favoriteArtist = $(event.target).closest('.favorites-artist-container').find('.artist-trigger').text();
+  console.log(favoriteArtist);
+  $('.artist-edit-input').val('');
+  $('.artist-edit-input').val(favoriteArtist);
+});
+
+$('.edit-artist-proceed').on('click', event => {
+  event.preventDefault();
+
+});
+
+$('.edit-artist-cancel').on('click', event => {
+  event.preventDefault();
+$('.artist-edit-input-container').hide();
 });
 
 //Search for Artist

@@ -257,6 +257,10 @@ footer{
 	float: right;
 }
 
+.artist-edit-input {
+	border: 1px solid #cdd2d4;
+}
+
 .events-search-bar {
 	width: 60%;
 	height: 46px;
