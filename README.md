@@ -1,12 +1,20 @@
 # Capstone
 
 ## Screenshots
+![Screenshots](https://raw.githubusercontent.com/fulin426/React-Capstone/master/public/Images/screenshot_landing-page.png)
+![Screenshots](https://raw.githubusercontent.com/fulin426/React-Capstone/master/public/Images/screenshot_create-account.png)
+![Screenshots](https://raw.githubusercontent.com/fulin426/React-Capstone/master/public/Images/screenshot_login.png)
+![Screenshots](https://raw.githubusercontent.com/fulin426/React-Capstone/master/public/Images/screenshot_my-events.png)
+![Screenshots](https://raw.githubusercontent.com/fulin426/React-Capstone/master/public/Images/screenshot_up-coming-performances.png)
 
 ## Use Case
-Upcoming Events App is for fans of music events to search for and manage their events in one place. 
+Upcoming Events App is for fans of music events to search for and manage their events in one place.
 
 ## User Stories
 As a user I should be able to search for upcoming events, to save upcoming events,view event details, and create a top 5 artists list.
+![User Stories](https://raw.githubusercontent.com/fulin426/React-Capstone/master/public/Images/IMG_20180609_155904.jpg)
+![User Stories](https://raw.githubusercontent.com/fulin426/React-Capstone/master/public/Images/IMG_20180616_134330.jpg)
+
 ## Working Prototype
 
 Live preview at https://capstone-upcoming-events.herokuapp.com/
