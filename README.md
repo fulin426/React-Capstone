@@ -5,7 +5,6 @@
 ![Screenshots](https://raw.githubusercontent.com/fulin426/React-Capstone/master/public/Images/screenshot_create-account.png)
 ![Screenshots](https://raw.githubusercontent.com/fulin426/React-Capstone/master/public/Images/screenshot_login.png)
 ![Screenshots](https://raw.githubusercontent.com/fulin426/React-Capstone/master/public/Images/screenshot_my-events.png)
-![Screenshots](https://raw.githubusercontent.com/fulin426/React-Capstone/master/public/Images/screenshot_up-coming-performances.png)
 
 ## Use Case
 Upcoming Events App is for fans of music events to search for and manage their events in one place.
