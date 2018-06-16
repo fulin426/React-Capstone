@@ -238,7 +238,7 @@ $('.artist-trigger').on('click', event => {
 $('.artist-edit').on('click', event => {
   event.preventDefault();
   $('.artist-edit-input-container').hide();
-  $(event.target).closest('.favorites-artist-container').find('.artist-edit-input-container').show();
+  $(event.target).closest('.favorites-artist-wrapper').find('.artist-edit-input-container').show();
   const favoriteArtist = $(event.target).closest('.favorites-artist-container').find('.artist-trigger').text();
   $('.artist-edit-input').val('');
   $('.artist-edit-input').val(favoriteArtist);
@@ -246,7 +246,31 @@ $('.artist-edit').on('click', event => {
 
 $('.edit-artist-proceed').on('click', event => {
   event.preventDefault();
+    const loggedInUser = $('.loggedin-user').val();
+    const newName = $(event.target).closest('.').find('.').val();
+    const newTarget = $(event.target).closest('.').find('.').val();
+    let assetId = $(event.target).closest('.').find('.').val();
+    
+        const editAssetObject = {       
+        name: newName,
+        value: newValue,
+        target: newTarget,
+        };
+        $.ajax({
+            type: 'PUT',
+            url: `/asset/${assetId}`,
+            dataType: 'json',
+            data: JSON.stringify(editAssetObject),
+            contentType: 'application/json'
+        })
+        .done(function (result) {
 
+        })
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
 });
 
 $('.edit-artist-cancel').on('click', event => {
@@ -255,7 +279,6 @@ $('.artist-edit-input-container').hide();
 });
 
 function createFavArtistsObject() {
-    const artistOne = $('#artist-1').text();
     const artistTwo = $('#artist-2').text();
     const artistThree = $('#artist-3').text();
     const artistFour = $('#artist-4').text();
@@ -288,7 +311,32 @@ function createFavArtistsObject() {
     });
 }
 
-$(createFavArtistsObject);
+function displayMyTopFive(loggedInUser) {
+    let result = $.ajax({
+                url: "/event/topartists/"+ loggedInUser,
+                dataType: "json",
+                type: "GET"
+            })
+            .done(function (result) {  
+            console.log(result);
+             let buildTable = '';             
+                $.each(result, function (resulteKey, resulteValue) {
+                    buildTable += '<div class="favorites-artist-wrapper">';
+                    buildTable += `<p><span class='artist-trigger' id='artist-1'>Dash Berlin</span><span class='artist-edit'>`;
+                    buildTable += '<i class="fas fa-edit"></i></span></p>';
+                    buildTable += `<div class='artist-edit-input-container'>`;
+                    buildTable += `<input class='artist-edit-input'><button class='edit-artist-proceed'>Edit</button><button class='edit-artist-cancel'>Cancel</button>`;
+                    buildTable += '</div>';
+                    buildTable += '</div>';
+                });
+                $('.favorite-artists-container').html(buildTable);
+            })
+            .fail(function (jqXHR, error, errorThrown) {
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+            });
+}
 
 //Search for Artist
 $('.events-search-button').on('click', event => {
@@ -342,7 +390,6 @@ $('.my-search-results-container').on('click', '.fa-plus-square', function(event)
 
 function displayMyEvents(loggedInUser) {
     let result = $.ajax({
-                /* update API end point */
                 url: "/event/get/"+ loggedInUser,
                 dataType: "json",
                 type: "GET"

@@ -209,7 +209,7 @@ app.post('/event/topartists', (req, res) => {
 });
 
 // ACCESING the top 5 artist list BY ID
-app.get('/event/get/:user', function (req, res) {
+app.get('/event/topartists/:user', function (req, res) {
     EventDetail.find({
             user: req.params.user
         }, (err, event) => {

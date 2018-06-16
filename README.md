@@ -1,21 +1,32 @@
-# React-Capstone
+# Capstone
 
 ## Screenshots
 
 ## Use Case
+Upcoming Events App is for fans of music events to search for and manage their events in one place. 
 
 ## User Stories
-
+As a user I should be able to search for upcoming events.
+As a user I should be able to save upcoming events.
+As a user I should be able to view event details.
+As a user I should be able to create a top 5 artists list.
 ## Working Prototype
+
+Live preview at https://capstone-upcoming-events.herokuapp.com/
 
 ## Technology
 ### Front End
 * HTML
 * CSS
 * JavaScript
-* React
+* Jquery
 
 ### Back End
+* Node.js
+* Express
+* Mongoose
+* mLab Database
+* Mocha and Chai
 
 ## Responsive
 This app is responsive and optimized for desktop and mobile use. 
