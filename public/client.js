@@ -98,12 +98,13 @@ function ifNull(time) {
   }
 }
 
-//Triggers
+//On startup
 $(document).ready(function () {
   $('section').hide();
   $('.log-out').hide();
   $('#landing-page').show();
 });
+//Triggers
 //Landing Page Log In
 $('#login-trigger').on('click', event => {
   event.preventDefault();
@@ -292,7 +293,7 @@ function createFavArtistsObject() {
     const artistFour = $('#artist-4').text();
     const artistFive = $('#artist-5').text();
     const loggedInUser = $('.loggedin-user').val();
-
+    
     const newTopFiveObject = {
         user: loggedInUser,
         favorites1: artistOne,
@@ -301,7 +302,6 @@ function createFavArtistsObject() {
         favorites4: artistFour,
         favorites5: artistFive
     };
-
     $.ajax({
         type: 'POST',
         url: '/event/topartists',
