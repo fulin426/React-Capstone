@@ -289,11 +289,11 @@ $('.artist-edit-input-container').hide();
 });
 
 function createFavArtistsObject(userEmail) {
-    const artistOne = 'Add Artists Here';
-    const artistTwo = '';
-    const artistThree = '';
-    const artistFour = '';
-    const artistFive = '';
+    const artistOne = 'Add Artist Name';
+    const artistTwo = 'Add Artist Name';
+    const artistThree = 'Add Artist Name';
+    const artistFour = 'Add Artist Name';
+    const artistFive = 'Add Artist Name';
     let loggedInUser = userEmail;
 
     const newTopFiveObject = {
@@ -329,7 +329,7 @@ function displayMyTopFive(loggedInUser) {
             })
             .done(function (result) {  
             console.log(result);
-            insertArtistData(result[0].favorites1);
+            insertArtistData(result[0].favorites1, result[0].favorites2, result[0].favorites3, result[0].favorites4, result[0].favorites5);
             })
             .fail(function (jqXHR, error, errorThrown) {
                 console.log(jqXHR);
@@ -340,6 +340,10 @@ function displayMyTopFive(loggedInUser) {
 //instead of rebuilding the entire thing just insert values where needed. 
 function insertArtistData(fav1, fav2, fav3, fav4, fav5) {
   $('#artist-1').text(fav1);
+  $('#artist-2').text(fav2);
+  $('#artist-3').text(fav3);
+  $('#artist-4').text(fav4);
+  $('#artist-5').text(fav5);
 }
 
 //Search for Artist
