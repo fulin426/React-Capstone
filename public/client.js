@@ -170,6 +170,7 @@ $('#login-events-page').on('click', event => {
                 $('.log-out').show();
                 $('.loggedin-user').val(result.email);
                 displayMyEvents(result.email);
+                displayMyTopFive(result.email);
             })
             //if the api call is NOT succefull
             .fail(function (jqXHR, error, errorThrown) {
@@ -217,7 +218,8 @@ $('#signup-events-page').on('click', event => {
                 $('.log-out').show();
                 $('#my-events-page').show();
                 //create favorite artists object
-                createFavArtistsObject();
+                createFavArtistsObject(result.email);
+                displayMyTopFive(result.email);
             })
             //if the api call is NOT succefull
             .fail(function (jqXHR, error, errorThrown) {
@@ -256,9 +258,7 @@ $('.artist-edit').on('click', event => {
 
 $('.edit-artist-proceed').on('click', event => {
   event.preventDefault();
-    const loggedInUser = $('.loggedin-user').val();
-    $(event.target).closest('.').find('.').val();
-    $(event.target).closest('.').find('.').val();
+    const newFavorite1 = $(event.target).closest('.').find('.').val();
     let assetId = $(event.target).closest('.').find('.').val();
     
         const editAssetObject = {       
@@ -288,13 +288,14 @@ $('.edit-artist-cancel').on('click', event => {
 $('.artist-edit-input-container').hide();
 });
 
-function createFavArtistsObject() {
-    const artistTwo = $('#artist-2').text();
-    const artistThree = $('#artist-3').text();
-    const artistFour = $('#artist-4').text();
-    const artistFive = $('#artist-5').text();
-    const loggedInUser = $('.loggedin-user').val();
-    
+function createFavArtistsObject(userEmail) {
+    const artistOne = 'Add Artists Here';
+    const artistTwo = '';
+    const artistThree = '';
+    const artistFour = '';
+    const artistFive = '';
+    let loggedInUser = userEmail;
+
     const newTopFiveObject = {
         user: loggedInUser,
         favorites1: artistOne,
@@ -322,7 +323,7 @@ function createFavArtistsObject() {
 
 function displayMyTopFive(loggedInUser) {
     let result = $.ajax({
-                url: "/event/topartists/"+ loggedInUser,
+                url: `/event/topartists/${loggedInUser}`,
                 dataType: "json",
                 type: "GET"
             })
@@ -331,10 +332,10 @@ function displayMyTopFive(loggedInUser) {
              let buildTable = '';             
                 $.each(result, function (resulteKey, resulteValue) {
                     buildTable += '<div class="favorites-artist-wrapper">';
-                    buildTable += `<p><span class='artist-trigger' id='artist-1'>Dash Berlin</span><span class='artist-edit'>`;
-                    buildTable += '<i class="fas fa-edit"></i></span></p>';
+                    buildTable += `<p><span class='artist-trigger' id='artist-2'>${resulteValue.favorites1}</span><span class='artist-edit'><i class="fas fa-edit"></i></span></p>`;
                     buildTable += `<div class='artist-edit-input-container'>`;
                     buildTable += `<input class='artist-edit-input'><button class='edit-artist-proceed'>Edit</button><button class='edit-artist-cancel'>Cancel</button>`;
+                    buildTable += '<input type="hidden" name="asset-id" class="asset-id" value="' + resulteValue._id + '">';
                     buildTable += '</div>';
                     buildTable += '</div>';
                 });

@@ -208,9 +208,31 @@ app.post('/event/topartists', (req, res) => {
         });
 });
 
+// PUT --------------------------------------
+// edit the top 5 list
+app.put('/event/topartists/:id', function (req, res) {
+    let toUpdate = {};
+    let updateableFields = ['favorites1', 'favorites2', 'favorites3', 'favorites4', 'favorites5'];
+    updateableFields.forEach(function(field) {
+        if (field in req.body) {
+            toUpdate[field] = req.body[field];
+        }
+    });
+    Asset
+        .findByIdAndUpdate(req.params.id, {
+            $set: toUpdate
+        }).exec().then(function(asset) {
+            return res.status(204).end();
+        }).catch(function(err) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        });
+});
+
 // ACCESING the top 5 artist list BY ID
 app.get('/event/topartists/:user', function (req, res) {
-    EventDetail.find({
+    Favorites.find({
             user: req.params.user
         }, (err, event) => {
             if (err) {
