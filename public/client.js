@@ -171,6 +171,7 @@ $('#login-events-page').on('click', event => {
                 $('.loggedin-user').val(result.email);
                 displayMyEvents(result.email);
                 displayMyTopFive(result.email);
+                insertArtistID(result._id);
             })
             //if the api call is NOT succefull
             .fail(function (jqXHR, error, errorThrown) {
@@ -181,6 +182,10 @@ $('#login-events-page').on('click', event => {
             });
         };
 });
+
+function insertArtistID(IDnum) {
+  $('#topArtists-id').val(IDnum);
+}
 //sign up new account
 $('#signup-events-page').on('click', event => {
   event.preventDefault();
@@ -220,6 +225,7 @@ $('#signup-events-page').on('click', event => {
                 //create favorite artists object
                 createFavArtistsObject(result.email);
                 displayMyTopFive(result.email);
+                insertArtistID(result._id);
             })
             //if the api call is NOT succefull
             .fail(function (jqXHR, error, errorThrown) {
@@ -229,7 +235,6 @@ $('#signup-events-page').on('click', event => {
             });
         };
 });
-
 //log-out
 $('.log-out').on('click', event => {
   event.preventDefault();
@@ -251,17 +256,22 @@ $('.artist-edit').on('click', event => {
   $('.artist-edit-input-container').hide();
   $(event.target).closest('.favorites-artist-wrapper').find('.artist-edit-input-container').show();
   const favoriteArtist = $(event.target).closest('.favorites-artist-wrapper').find('.artist-trigger').text();
-  console.log(favoriteArtist);
   $('.artist-edit-input').val('');
   $('.artist-edit-input').val(favoriteArtist);
 });
 
 $('.edit-artist-proceed').on('click', event => {
   event.preventDefault();
-    const newFavorite1 = $(event.target).closest('.').find('.').val();
-    let assetId = $(event.target).closest('.').find('.').val();
-    
-        const editAssetObject = {       
+    const newFavorite1 = $('#artist-1').text();
+    const newFavorite2 = $('#artist-2').text();
+    const newFavorite3 = $('#artist-3').text();
+    const newFavorite4 = $('#artist-4').text();
+    const newFavorite5 = $('#artist-5').text();
+    let assetId = $('#topArtists-id').val();
+    console.log(newFavorite4);
+    console.log(assetId);
+
+        const editObject = {       
         name: newName,
         value: newValue,
         target: newTarget,
@@ -270,7 +280,7 @@ $('.edit-artist-proceed').on('click', event => {
             type: 'PUT',
             url: `/asset/${assetId}`,
             dataType: 'json',
-            data: JSON.stringify(editAssetObject),
+            data: JSON.stringify(editObject),
             contentType: 'application/json'
         })
         .done(function (result) {
