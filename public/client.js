@@ -279,7 +279,7 @@ $('.edit-artist-proceed').on('click', event => {
     const newFavorite3 = $('#artist-3').text();
     const newFavorite4 = $('#artist-4').text();
     const newFavorite5 = $('#artist-5').text();
-    let assetId = $('#topArtists-id').val();
+    let objectId = $('#topArtists-id').val();
 
     const editObject = {       
     favorites1: 'test edit',
@@ -290,14 +290,14 @@ $('.edit-artist-proceed').on('click', event => {
     };
     $.ajax({
         type: 'PUT',
-        url: `/event/topartists/${assetId}`,
+        url: `/event/topartists/${objectId}`,
         dataType: 'json',
         data: JSON.stringify(editObject),
         contentType: 'application/json'
     })
     .done(function (result) {
         console.log(result);
-        /*displayMyTopFive(result.)*/
+/*        displayMyTopFive(result);*/
     })
     .fail(function (jqXHR, error, errorThrown) {
         console.log(jqXHR);
