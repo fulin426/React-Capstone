@@ -181,7 +181,7 @@ app.post('/event/create', (req, res) => {
 
 // POST -----------------------------------------
 // Create top5 artist list on firstime login
-app.post('/event/topartists', (req, res) => {
+app.post('/topartists', (req, res) => {
     let user = req.body.user;
     let favorites1 = req.body.favorites1;
     let favorites2 = req.body.favorites2;
@@ -218,10 +218,10 @@ app.put('/event/topartists/:id', function (req, res) {
             toUpdate[field] = req.body[field];
         }
     });
-    Asset
+    Favorites
         .findByIdAndUpdate(req.params.id, {
             $set: toUpdate
-        }).exec().then(function(asset) {
+        }).exec().then(function(favorites) {
             return res.status(204).end();
         }).catch(function(err) {
             return res.status(500).json({

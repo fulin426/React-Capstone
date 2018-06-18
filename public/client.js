@@ -1,22 +1,36 @@
 const API_Key ='BNciuRNtRNFoYYJG';
 
 function getArtistData (searchTerm) {
+    let artist = $('.events-search-bar').val()
+    const errorMsg = `   
+        <div class='events-row my-events' id='error-message'>      
+          <p>${artist} Not found. Please check spelling or try another artist name.</p>
+        </div>`;
+
     let settings = {
     url:`https://api.songkick.com/api/3.0/search/artists.json?apikey=${API_Key}&query=${searchTerm}`,
     dataType: 'json',
     type: 'GET',
     success: data => {
-      const artistID = data.resultsPage.results.artist[0].id;
-      getCalendarData(artistID);
+      try {
+        const artistID = data.resultsPage.results.artist[0].id;
+        getCalendarData(artistID);
+      } catch (error) {
+        $('.my-search-results-container').prop('hidden', false).html(errorMsg);
+        }
+      },
+      error: function() {
+        $('.my-search-results-container').prop('hidden', false).html(errorMsg);
     },
   };
   $.ajax(settings);
 }
 
 function getCalendarData(artistID) {
+  let artistSearchBar = $('.events-search-bar').val();
   const errorMsg = `   
         <div class='events-row my-events' id='error-message'>      
-          <p>No Results Found. Please try a different artist.</p>
+          <p>No upcoming ${artistSearchBar} performances found. Please try a different artist.</p>
         </div>`;  
 
   let settings = {
@@ -24,7 +38,6 @@ function getCalendarData(artistID) {
     dataType: 'json',
     type: 'GET',
     success: data => {
-      console.log(data);
       try { 
         let searchResults = data.resultsPage.results.event.map((item, index) => displaySearchResults(item));
       $('.my-search-results-container').html(searchResults);
@@ -158,9 +171,7 @@ $('#login-events-page').on('click', event => {
                 contentType: 'application/json'
             })
             //if the api call is succefull
-            .done(function (result) {
-                //display the results
-                console.log(result);          
+            .done(function (result) {         
                 //hide all the sections
                 $('section').hide();
                 $('.my-results-header').hide();
@@ -171,7 +182,7 @@ $('#login-events-page').on('click', event => {
                 $('.loggedin-user').val(result.email);
                 displayMyEvents(result.email);
                 displayMyTopFive(result.email);
-                insertArtistID(result._id);
+                insertTopFiveObjectID(result._id);
             })
             //if the api call is NOT succefull
             .fail(function (jqXHR, error, errorThrown) {
@@ -183,7 +194,7 @@ $('#login-events-page').on('click', event => {
         };
 });
 
-function insertArtistID(IDnum) {
+function insertTopFiveObjectID(IDnum) {
   $('#topArtists-id').val(IDnum);
 }
 //sign up new account
@@ -225,7 +236,7 @@ $('#signup-events-page').on('click', event => {
                 //create favorite artists object
                 createFavArtistsObject(result.email);
                 displayMyTopFive(result.email);
-                insertArtistID(result._id);
+                insertTopFiveObjectID(result._id);
             })
             //if the api call is NOT succefull
             .fail(function (jqXHR, error, errorThrown) {
@@ -262,35 +273,37 @@ $('.artist-edit').on('click', event => {
 
 $('.edit-artist-proceed').on('click', event => {
   event.preventDefault();
+  $('.artist-edit-input-container').hide();
     const newFavorite1 = $('#artist-1').text();
     const newFavorite2 = $('#artist-2').text();
     const newFavorite3 = $('#artist-3').text();
     const newFavorite4 = $('#artist-4').text();
     const newFavorite5 = $('#artist-5').text();
     let assetId = $('#topArtists-id').val();
-    console.log(newFavorite4);
-    console.log(assetId);
 
-        const editObject = {       
-        name: newName,
-        value: newValue,
-        target: newTarget,
-        };
-        $.ajax({
-            type: 'PUT',
-            url: `/asset/${assetId}`,
-            dataType: 'json',
-            data: JSON.stringify(editObject),
-            contentType: 'application/json'
-        })
-        .done(function (result) {
-
-        })
-        .fail(function (jqXHR, error, errorThrown) {
-            console.log(jqXHR);
-            console.log(error);
-            console.log(errorThrown);
-        });
+    const editObject = {       
+    favorites1: 'test edit',
+    favorites2: newFavorite2,
+    favorites3: newFavorite3,
+    favorites4: newFavorite4,
+    favorites5: newFavorite5
+    };
+    $.ajax({
+        type: 'PUT',
+        url: `/event/topartists/${assetId}`,
+        dataType: 'json',
+        data: JSON.stringify(editObject),
+        contentType: 'application/json'
+    })
+    .done(function (result) {
+        console.log(result);
+        /*displayMyTopFive(result.)*/
+    })
+    .fail(function (jqXHR, error, errorThrown) {
+        console.log(jqXHR);
+        console.log(error);
+        console.log(errorThrown);
+    });
 });
 
 $('.edit-artist-cancel').on('click', event => {
@@ -316,7 +329,7 @@ function createFavArtistsObject(userEmail) {
     };
     $.ajax({
         type: 'POST',
-        url: '/event/topartists',
+        url: '/topartists',
         dataType: 'json',
         data: JSON.stringify(newTopFiveObject),
         contentType: 'application/json'
@@ -337,14 +350,13 @@ function displayMyTopFive(loggedInUser) {
                 dataType: "json",
                 type: "GET"
             })
-            .done(function (result) {  
-            console.log(result);
-            insertArtistData(result[0].favorites1, result[0].favorites2, result[0].favorites3, result[0].favorites4, result[0].favorites5);
+            .done(function (result) {
+              insertArtistData(result[0].favorites1, result[0].favorites2, result[0].favorites3, result[0].favorites4, result[0].favorites5);
             })
             .fail(function (jqXHR, error, errorThrown) {
-                console.log(jqXHR);
-                console.log(error);
-                console.log(errorThrown);
+              console.log(jqXHR);
+              console.log(error);
+              console.log(errorThrown);
             });
 }
 //instead of rebuilding the entire thing just insert values where needed. 
@@ -360,8 +372,12 @@ function insertArtistData(fav1, fav2, fav3, fav4, fav5) {
 $('.events-search-button').on('click', event => {
   event.preventDefault();
   let artist = $('.events-search-bar').val();
+  if (artist === '') {
+    alert('Please Enter Artist');
+  } else {
   getArtistData (artist);
-  $('.my-results-header').show();
+    $('.my-results-header').show();
+  }
 });
 
 //add event
@@ -394,7 +410,6 @@ $('.my-search-results-container').on('click', '.fa-plus-square', function(event)
         contentType: 'application/json'
     })
     .done(function(result) {
-      console.log(result);
       displayMyEvents(result.user);
       $(event.target).closest('.my-events').hide();
     })
@@ -413,7 +428,6 @@ function displayMyEvents(loggedInUser) {
                 type: "GET"
             })
             .done(function (result) {  
-            console.log(result);
              let buildTable = '';             
                 $.each(result, function (resulteKey, resulteValue) {
                     buildTable += '<div class="events-row my-events">';
@@ -446,7 +460,6 @@ $('.my-saved-events-container').on('click', '.delete-button', function(event) {
     event.preventDefault();
     const loggedInUser = $('.loggedin-user').val();
     let eventId = $(event.target).closest('.my-events').find('.event-id').val();
-    console.log(eventId);
     $.ajax({
         type: 'DELETE',
         url: `/event/delete/${eventId}`
