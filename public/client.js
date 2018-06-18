@@ -329,23 +329,17 @@ function displayMyTopFive(loggedInUser) {
             })
             .done(function (result) {  
             console.log(result);
-             let buildTable = '';             
-                $.each(result, function (resulteKey, resulteValue) {
-                    buildTable += '<div class="favorites-artist-wrapper">';
-                    buildTable += `<p><span class='artist-trigger' id='artist-2'>${resulteValue.favorites1}</span><span class='artist-edit'><i class="fas fa-edit"></i></span></p>`;
-                    buildTable += `<div class='artist-edit-input-container'>`;
-                    buildTable += `<input class='artist-edit-input'><button class='edit-artist-proceed'>Edit</button><button class='edit-artist-cancel'>Cancel</button>`;
-                    buildTable += '<input type="hidden" name="asset-id" class="asset-id" value="' + resulteValue._id + '">';
-                    buildTable += '</div>';
-                    buildTable += '</div>';
-                });
-                $('.favorite-artists-container').html(buildTable);
+            insertArtistData(result[0].favorites1);
             })
             .fail(function (jqXHR, error, errorThrown) {
                 console.log(jqXHR);
                 console.log(error);
                 console.log(errorThrown);
             });
+}
+//instead of rebuilding the entire thing just insert values where needed. 
+function insertArtistData(fav1, fav2, fav3, fav4, fav5) {
+  $('#artist-1').text(fav1);
 }
 
 //Search for Artist
