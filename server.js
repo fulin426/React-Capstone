@@ -180,7 +180,7 @@ app.post('/event/create', (req, res) => {
 });
 
 // POST -----------------------------------------
-// creating a new top5 artist list
+// Create top5 artist list on firstime login
 app.post('/event/topartists', (req, res) => {
     let user = req.body.user;
     let favorites1 = req.body.favorites1;

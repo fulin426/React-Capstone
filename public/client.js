@@ -248,7 +248,8 @@ $('.artist-edit').on('click', event => {
   event.preventDefault();
   $('.artist-edit-input-container').hide();
   $(event.target).closest('.favorites-artist-wrapper').find('.artist-edit-input-container').show();
-  const favoriteArtist = $(event.target).closest('.favorites-artist-container').find('.artist-trigger').text();
+  const favoriteArtist = $(event.target).closest('.favorites-artist-wrapper').find('.artist-trigger').text();
+  console.log(favoriteArtist);
   $('.artist-edit-input').val('');
   $('.artist-edit-input').val(favoriteArtist);
 });
