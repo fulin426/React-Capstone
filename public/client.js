@@ -228,10 +228,10 @@ $('#signup-events-page').on('click', event => {
                 //show events page only
                 $('.log-out').show();
                 $('#my-events-page').show();
+                $('.loggedin-user').val(result.email);
                 //create favorite artists object
                 createFavArtistsObject(result.email);
                 displayMyTopFive(result.email);
-                insertTopFiveObjectID(result._id);
             })
             //if the api call is NOT succefull
             .fail(function (jqXHR, error, errorThrown) {
@@ -281,7 +281,7 @@ $('.edit-artist-proceed').on('click', event => {
 
     const editObject = {       
     user: loggedInUser,
-    favorites1: 'test edit works',
+    favorites1: 'Time to Sleep!',
     favorites2: newFavorite2,
     favorites3: newFavorite3,
     favorites4: 'newFavorite4',
@@ -334,8 +334,7 @@ function createFavArtistsObject(userEmail) {
         contentType: 'application/json'
     })
     .done(function(result) {
-        console.log(result._id)
-        $('#topArtists-id').val();
+        $('#topArtists-id').val(result._id);
     })
     .fail(function (jqXHR, error, errorThrown) {
         console.log(jqXHR);
