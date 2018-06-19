@@ -213,7 +213,7 @@ app.post('/topartists', (req, res) => {
 // edit the top 5 list
 app.put('/event/topartists/:id', function (req, res) {
     let toUpdate = {};
-    let updateableFields = ['user','favorites1', 'favorites2', 'favorites3', 'favorites4', 'favorites5'];
+    let updateableFields = ['favorites1', 'favorites2', 'favorites3', 'favorites4', 'favorites5'];
     updateableFields.forEach(function(field) {
         if (field in req.body) {
             toUpdate[field] = req.body[field];

@@ -276,18 +276,15 @@ $('.edit-artist-proceed').on('click', event => {
     const newFavorite3 = $('#artist-3').text();
     const newFavorite4 = $('#artist-4').text();
     const newFavorite5 = $('#artist-5').text();
-    const loggedInUser = $('.loggedin-user').val();
     let objectId = $('#topArtists-id').val();
 
-    const editObject = {       
-    user: loggedInUser,
+    const editObject = {
     favorites1: 'Time to Sleep!',
     favorites2: newFavorite2,
     favorites3: newFavorite3,
-    favorites4: 'newFavorite4',
+    favorites4: 'Last Test',
     favorites5: newFavorite5
     };
-    console.log(editObject);
     $.ajax({
         type: 'PUT',
         url: `/event/topartists/${objectId}`,
