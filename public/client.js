@@ -182,7 +182,6 @@ $('#login-events-page').on('click', event => {
                 $('.loggedin-user').val(result.email);
                 displayMyEvents(result.email);
                 displayMyTopFive(result.email);
-                insertTopFiveObjectID(result._id);
             })
             //if the api call is NOT succefull
             .fail(function (jqXHR, error, errorThrown) {
@@ -193,10 +192,6 @@ $('#login-events-page').on('click', event => {
             });
         };
 });
-
-function insertTopFiveObjectID(IDnum) {
-  $('#topArtists-id').val(IDnum);
-}
 //sign up new account
 $('#signup-events-page').on('click', event => {
   event.preventDefault();
@@ -266,7 +261,9 @@ $('.artist-edit').on('click', event => {
   event.preventDefault();
   $('.artist-edit-input-container').hide();
   $(event.target).closest('.favorites-artist-wrapper').find('.artist-edit-input-container').show();
-  const favoriteArtist = $(event.target).closest('.favorites-artist-wrapper').find('.artist-trigger').text();
+  const favoriteArtist = $(this).parent().parent().find('.artist-trigger').text();
+  console.log($(this));
+  console.log(favoriteArtist);
   $('.artist-edit-input').val('');
   $('.artist-edit-input').val(favoriteArtist);
 });
@@ -274,20 +271,23 @@ $('.artist-edit').on('click', event => {
 $('.edit-artist-proceed').on('click', event => {
   event.preventDefault();
   $('.artist-edit-input-container').hide();
-    const newFavorite1 = $('#artist-1').text();
+    const newFavorite1 = $(this).parent().find('.artist-edit-input').val();
     const newFavorite2 = $('#artist-2').text();
     const newFavorite3 = $('#artist-3').text();
     const newFavorite4 = $('#artist-4').text();
     const newFavorite5 = $('#artist-5').text();
+    const loggedInUser = $('.loggedin-user').val();
     let objectId = $('#topArtists-id').val();
 
     const editObject = {       
-    favorites1: 'test edit',
+    user: loggedInUser,
+    favorites1: 'test edit works',
     favorites2: newFavorite2,
     favorites3: newFavorite3,
-    favorites4: newFavorite4,
+    favorites4: 'newFavorite4',
     favorites5: newFavorite5
     };
+    console.log(editObject);
     $.ajax({
         type: 'PUT',
         url: `/event/topartists/${objectId}`,
@@ -296,8 +296,7 @@ $('.edit-artist-proceed').on('click', event => {
         contentType: 'application/json'
     })
     .done(function (result) {
-        console.log(result);
-/*        displayMyTopFive(result);*/
+        displayMyTopFive(loggedInUser);
     })
     .fail(function (jqXHR, error, errorThrown) {
         console.log(jqXHR);
@@ -335,7 +334,8 @@ function createFavArtistsObject(userEmail) {
         contentType: 'application/json'
     })
     .done(function(result) {
-        
+        console.log(result._id)
+        $('#topArtists-id').val();
     })
     .fail(function (jqXHR, error, errorThrown) {
         console.log(jqXHR);
@@ -351,7 +351,7 @@ function displayMyTopFive(loggedInUser) {
                 type: "GET"
             })
             .done(function (result) {
-              insertArtistData(result[0].favorites1, result[0].favorites2, result[0].favorites3, result[0].favorites4, result[0].favorites5);
+              insertArtistData(result[0].favorites1, result[0].favorites2, result[0].favorites3, result[0].favorites4, result[0].favorites5, result[0]._id);
             })
             .fail(function (jqXHR, error, errorThrown) {
               console.log(jqXHR);
@@ -360,12 +360,13 @@ function displayMyTopFive(loggedInUser) {
             });
 }
 //instead of rebuilding the entire thing just insert values where needed. 
-function insertArtistData(fav1, fav2, fav3, fav4, fav5) {
+function insertArtistData(fav1, fav2, fav3, fav4, fav5, ArtistID) {
   $('#artist-1').text(fav1);
   $('#artist-2').text(fav2);
   $('#artist-3').text(fav3);
   $('#artist-4').text(fav4);
   $('#artist-5').text(fav5);
+  $('#topArtists-id').val(ArtistID);
 }
 
 //Search for Artist

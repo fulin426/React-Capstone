@@ -11,6 +11,7 @@ const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const express = require('express');
 const app = express();
+const jsonParser = bodyParser.json();
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('public'));
@@ -212,7 +213,7 @@ app.post('/topartists', (req, res) => {
 // edit the top 5 list
 app.put('/event/topartists/:id', function (req, res) {
     let toUpdate = {};
-    let updateableFields = ['favorites1', 'favorites2', 'favorites3', 'favorites4', 'favorites5'];
+    let updateableFields = ['user','favorites1', 'favorites2', 'favorites3', 'favorites4', 'favorites5'];
     updateableFields.forEach(function(field) {
         if (field in req.body) {
             toUpdate[field] = req.body[field];
