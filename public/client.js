@@ -276,7 +276,8 @@ $('.edit-artist-proceed').on('click', event => {
     const newFavorite3 = $('#artist-3').text();
     const newFavorite4 = $('#artist-4').text();
     const newFavorite5 = $('#artist-5').text();
-    let objectId = $('#topArtists-id').val();
+    const objectId = $('#topArtists-id').val();
+    const loggedInUser = $('.loggedin-user').val();
 
     const editObject = {
     favorites1: 'Time to Sleep!',
@@ -347,22 +348,18 @@ function displayMyTopFive(loggedInUser) {
                 type: "GET"
             })
             .done(function (result) {
-              insertArtistData(result[0].favorites1, result[0].favorites2, result[0].favorites3, result[0].favorites4, result[0].favorites5, result[0]._id);
+              $('#artist-1').text(result[0].favorites1);
+              $('#artist-2').text(result[0].favorites2);
+              $('#artist-3').text(result[0].favorites3);
+              $('#artist-4').text(result[0].favorites4);
+              $('#artist-5').text(result[0].favorites5);
+              $('#topArtists-id').val(result[0]._id);
             })
             .fail(function (jqXHR, error, errorThrown) {
               console.log(jqXHR);
               console.log(error);
               console.log(errorThrown);
             });
-}
-//instead of rebuilding the entire thing just insert values where needed. 
-function insertArtistData(fav1, fav2, fav3, fav4, fav5, ArtistID) {
-  $('#artist-1').text(fav1);
-  $('#artist-2').text(fav2);
-  $('#artist-3').text(fav3);
-  $('#artist-4').text(fav4);
-  $('#artist-5').text(fav5);
-  $('#topArtists-id').val(ArtistID);
 }
 
 //Search for Artist
