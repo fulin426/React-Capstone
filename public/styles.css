@@ -313,7 +313,7 @@ footer{
 	padding-right: 0;
 }
 
-.fa-plus-square, .fa-trash-alt, .fa-edit, .fa-eye {
+.fa-plus-square, .fa-trash-alt, .fa-edit, .fa-eye{
 	cursor: pointer;
 }
 

@@ -239,7 +239,6 @@ $('.log-out').on('click', event => {
 $('.fa-eye').on('click', event => {
   event.preventDefault();
   const favoriteArtist = $(event.target).closest('.favorites-artist-wrapper').find('.fav-artist-input').val();
-  console.log(favoriteArtist);
   $('.events-search-bar').val('');
   $('.my-results-header').show();
   getArtistData (favoriteArtist);
@@ -263,7 +262,6 @@ $('.fa-edit').on('click', event => {
     favorites4: newFavorite4,
     favorites5: newFavorite5
     };
-    console.log(editObject);
     $.ajax({
         type: 'PUT',
         url: `/event/topartists/${objectId}`,
