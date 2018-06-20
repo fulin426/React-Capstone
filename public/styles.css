@@ -248,16 +248,28 @@ footer{
 	height: 100%;
 }
 
-/*.favorites-artist-container{
-	display: block;
-}*/
 .artist-trigger, .artist-edit {
 	cursor: pointer;
 }
 
-.fa-edit {
+.favorites-artist-wrapper {
+	margin-bottom: 5px;
+}
+
+.favorite-artists-container {
+	display: inline-block;
+}
+
+.icons-wrapper {
 	display: inline-block;
 	float: right;
+}
+
+.fav-artist-input {
+	display: inline-block;
+/*	border: 1px solid #cdd2d4;*/
+	width: 75%;
+	text-align: center;
 }
 
 .artist-edit-input {
@@ -312,7 +324,7 @@ footer{
 	padding-right: 0;
 }
 
-.fa-plus-square, .fa-trash-alt {
+.fa-plus-square, .fa-trash-alt, .fa-edit, .fa-eye {
 	cursor: pointer;
 }
 

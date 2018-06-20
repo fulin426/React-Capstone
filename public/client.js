@@ -247,25 +247,20 @@ $('.log-out').on('click', event => {
     location.reload();
 })
 
-//Favorite Artist Trigger
-$('.artist-trigger').on('click', event => {
+//Favorite Artist Search Trigger
+$('.fa-eye').on('click', event => {
   event.preventDefault();
-  const favoriteArtist = $(event.target).text();
+  const favoriteArtist = $(event.target).closest('.favorites-artist-wrapper').find('.fav-artist-input').val();
+  console.log(favoriteArtist);
   $('.events-search-bar').val('');
-  getArtistData (favoriteArtist);
   $('.my-results-header').show();
+  getArtistData (favoriteArtist);
 });
 
 //Favorite Artist edit function Trigger
 $('.artist-edit').on('click', event => {
   event.preventDefault();
-  $('.artist-edit-input-container').hide();
-  $(event.target).closest('.favorites-artist-wrapper').find('.artist-edit-input-container').show();
-  const favoriteArtist = $(this).parent().parent().find('.artist-trigger').text();
-  console.log($(this));
-  console.log(favoriteArtist);
-  $('.artist-edit-input').val('');
-  $('.artist-edit-input').val(favoriteArtist);
+
 });
 
 $('.edit-artist-proceed').on('click', event => {
@@ -348,11 +343,11 @@ function displayMyTopFive(loggedInUser) {
                 type: "GET"
             })
             .done(function (result) {
-              $('#artist-1').text(result[0].favorites1);
-              $('#artist-2').text(result[0].favorites2);
-              $('#artist-3').text(result[0].favorites3);
-              $('#artist-4').text(result[0].favorites4);
-              $('#artist-5').text(result[0].favorites5);
+              $('#artist-1').val(result[0].favorites1);
+              $('#artist-2').val(result[0].favorites2);
+              $('#artist-3').val(result[0].favorites3);
+              $('#artist-4').val(result[0].favorites4);
+              $('#artist-5').val(result[0].favorites5);
               $('#topArtists-id').val(result[0]._id);
             })
             .fail(function (jqXHR, error, errorThrown) {
