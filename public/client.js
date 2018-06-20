@@ -263,24 +263,24 @@ $('.artist-edit').on('click', event => {
 
 });
 
-$('.edit-artist-proceed').on('click', event => {
+$('.fa-edit').on('click', event => {
   event.preventDefault();
-  $('.artist-edit-input-container').hide();
-    const newFavorite1 = $(this).parent().find('.artist-edit-input').val();
-    const newFavorite2 = $('#artist-2').text();
-    const newFavorite3 = $('#artist-3').text();
-    const newFavorite4 = $('#artist-4').text();
-    const newFavorite5 = $('#artist-5').text();
+    const newFavorite1 = $('#artist-1').val();
+    const newFavorite2 = $('#artist-2').val();
+    const newFavorite3 = $('#artist-3').val();
+    const newFavorite4 = $('#artist-4').val();
+    const newFavorite5 = $('#artist-5').val();
     const objectId = $('#topArtists-id').val();
     const loggedInUser = $('.loggedin-user').val();
 
     const editObject = {
-    favorites1: 'Time to Sleep!',
+    favorites1: newFavorite1,
     favorites2: newFavorite2,
     favorites3: newFavorite3,
-    favorites4: 'Last Test',
+    favorites4: newFavorite4,
     favorites5: newFavorite5
     };
+    console.log(editObject);
     $.ajax({
         type: 'PUT',
         url: `/event/topartists/${objectId}`,
