@@ -1,10 +1,17 @@
+//On startup
+$(document).ready(function () {
+  $('section').hide();
+  $('.log-out').hide();
+  $('#landing-page').show();
+});
+
 const API_Key ='BNciuRNtRNFoYYJG';
 
 function getArtistData (searchTerm) {
-    let artist = $('.events-search-bar').val()
+    let artistSearchBarValue = $('.events-search-bar').val()
     const errorMsg = `   
         <div class='events-row my-events' id='error-message'>      
-          <p>${artist} Not found. Please check spelling or try another artist name.</p>
+          <p>${artistSearchBarValue} Not found. Please check spelling or try another artist name.</p>
         </div>`;
 
     let settings = {
@@ -12,6 +19,7 @@ function getArtistData (searchTerm) {
     dataType: 'json',
     type: 'GET',
     success: data => {
+
       try {
         const artistID = data.resultsPage.results.artist[0].id;
         getCalendarData(artistID);
@@ -27,10 +35,10 @@ function getArtistData (searchTerm) {
 }
 
 function getCalendarData(artistID) {
-  let artistSearchBar = $('.events-search-bar').val();
+  let artistSearchBarValue = $('.events-search-bar').val();
   const errorMsg = `   
         <div class='events-row my-events' id='error-message'>      
-          <p>No upcoming ${artistSearchBar} performances found. Please try a different artist.</p>
+          <p>No upcoming ${artistSearchBarValue} performances found. Please try a different artist.</p>
         </div>`;  
 
   let settings = {
@@ -69,7 +77,7 @@ function displaySearchResults(data) {
           </div>  
         </div>`;
 }
-
+//Functions that format the returned information
 function splitEventName(eventName)  {
   const splits = eventName.split('(',2);
   return splits[0];
@@ -78,7 +86,6 @@ function splitEventName(eventName)  {
 function formateDate(data) {
   return `${data.slice(5, 10)}-${data.slice(0,4)}`;
 }
-
 
 //Convert from military time
 function convertAMPM(time) {
@@ -111,12 +118,6 @@ function ifNull(time) {
   }
 }
 
-//On startup
-$(document).ready(function () {
-  $('section').hide();
-  $('.log-out').hide();
-  $('#landing-page').show();
-});
 //Triggers
 //Landing Page Log In
 $('#login-trigger').on('click', event => {
@@ -146,23 +147,18 @@ $('#login-form-login-trigger').on('click', event => {
 //log into events page
 $('#login-events-page').on('click', event => {
   event.preventDefault();
-    //take the input from the user
     const email = $('#login-email').val();
     const password = $('#login-password').val();
-        //validate the input
         if (email === '') {
             alert('Please Add Valid Email');
         } else if (password === '') {
             alert('Please Add Valid Password');
         }
-        //if the input is valid
         else {
-            //create a login user object
             const loginUserObject = {
                 email: email,
                 password: password
             };
-            // send the user object to the api call
             $.ajax({
                 type: 'POST',
                 url: '/users/login',
@@ -170,7 +166,6 @@ $('#login-events-page').on('click', event => {
                 data: JSON.stringify(loginUserObject),
                 contentType: 'application/json'
             })
-            //if the api call is succefull
             .done(function (result) {         
                 //hide all the sections
                 $('section').hide();
@@ -183,7 +178,6 @@ $('#login-events-page').on('click', event => {
                 displayMyEvents(result.email);
                 displayMyTopFive(result.email);
             })
-            //if the api call is NOT succefull
             .fail(function (jqXHR, error, errorThrown) {
                 console.log(jqXHR);
                 console.log(error);
@@ -197,20 +191,16 @@ $('#signup-events-page').on('click', event => {
   event.preventDefault();
     const email = $('#signup-email').val();
     const password = $('#signup-password').val();
-        //validate the input
         if (email === '') {
             alert('Please Add Valid Email');
         } else if (password === '') {
             alert('Please Add Valid Password');
         } 
-        //if the input is valid
         else {
-            //create a new user object
             const newUserObject = {
                 email: email,
                 password: password
             };
-            // send the user object to the api call
             $.ajax({
                 type: 'POST',
                 url: '/users/create',
@@ -218,7 +208,6 @@ $('#signup-events-page').on('click', event => {
                 data: JSON.stringify(newUserObject),
                 contentType: 'application/json'
             })
-            //if the api call is succefull
             .done(function (result) {
                 //display the results
                 alert(`${result.email} created`);               
@@ -229,11 +218,10 @@ $('#signup-events-page').on('click', event => {
                 $('.log-out').show();
                 $('#my-events-page').show();
                 $('.loggedin-user').val(result.email);
-                //create favorite artists object
+                //Create favorite artists object for new user
                 createFavArtistsObject(result.email);
                 displayMyTopFive(result.email);
             })
-            //if the api call is NOT succefull
             .fail(function (jqXHR, error, errorThrown) {
                 console.log(jqXHR);
                 console.log(error);
@@ -257,12 +245,7 @@ $('.fa-eye').on('click', event => {
   getArtistData (favoriteArtist);
 });
 
-//Favorite Artist edit function Trigger
-$('.artist-edit').on('click', event => {
-  event.preventDefault();
-
-});
-
+//Edit Top 5 trigger
 $('.fa-edit').on('click', event => {
   event.preventDefault();
     const newFavorite1 = $('#artist-1').val();
@@ -298,18 +281,13 @@ $('.fa-edit').on('click', event => {
     });
 });
 
-$('.edit-artist-cancel').on('click', event => {
-  event.preventDefault();
-$('.artist-edit-input-container').hide();
-});
-
 function createFavArtistsObject(userEmail) {
     const artistOne = 'Add Artist Name';
     const artistTwo = 'Add Artist Name';
     const artistThree = 'Add Artist Name';
     const artistFour = 'Add Artist Name';
     const artistFive = 'Add Artist Name';
-    let loggedInUser = userEmail;
+    const loggedInUser = userEmail;
 
     const newTopFiveObject = {
         user: loggedInUser,
@@ -335,7 +313,7 @@ function createFavArtistsObject(userEmail) {
         console.log(errorThrown);
     });
 }
-
+//Insert values from object
 function displayMyTopFive(loggedInUser) {
     let result = $.ajax({
                 url: `/event/topartists/${loggedInUser}`,
@@ -356,7 +334,6 @@ function displayMyTopFive(loggedInUser) {
               console.log(errorThrown);
             });
 }
-
 //Search for Artist
 $('.events-search-button').on('click', event => {
   event.preventDefault();
@@ -369,7 +346,7 @@ $('.events-search-button').on('click', event => {
   }
 });
 
-//add event
+//Add event
 $('.my-search-results-container').on('click', '.fa-plus-square', function(event) {
     event.preventDefault();
     const newDate = $(event.target).closest('.my-events').find('.event-date').text();
@@ -437,14 +414,13 @@ function displayMyEvents(loggedInUser) {
                 });
                 $('.my-saved-events-container').html(buildTable);
             })
-            /* if the call is NOT successful show errors */
             .fail(function (jqXHR, error, errorThrown) {
                 console.log(jqXHR);
                 console.log(error);
                 console.log(errorThrown);
             });
 }
-//delete event
+//Delete event
 $('.my-saved-events-container').on('click', '.delete-button', function(event) {
     event.preventDefault();
     const loggedInUser = $('.loggedin-user').val();
@@ -462,10 +438,3 @@ $('.my-saved-events-container').on('click', '.delete-button', function(event) {
             console.log(errorThrown);
         });
 });
-
-             
-          
-            
-            
-
-
