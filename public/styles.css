@@ -244,12 +244,7 @@ footer{
 }
 
 .search-section {
-/*	border: 1px solid #cdd2d4;*/
 	height: 100%;
-}
-
-.artist-trigger, .artist-edit {
-	cursor: pointer;
 }
 
 .favorites-artist-wrapper {
@@ -267,14 +262,8 @@ footer{
 
 .fav-artist-input {
 	display: inline-block;
-/*	border: 1px solid #cdd2d4;*/
 	width: 75%;
 	text-align: center;
-}
-
-.artist-edit-input {
-	border: 1px solid #cdd2d4;
-	width: 100%;
 }
 
 .events-search-bar {
