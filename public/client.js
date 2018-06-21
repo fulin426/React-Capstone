@@ -19,7 +19,6 @@ function getArtistData (searchTerm) {
     dataType: 'json',
     type: 'GET',
     success: data => {
-
       try {
         const artistID = data.resultsPage.results.artist[0].id;
         getCalendarData(artistID);
@@ -46,9 +45,10 @@ function getCalendarData(artistID) {
     dataType: 'json',
     type: 'GET',
     success: data => {
+      console.log(data);
       try { 
         let searchResults = data.resultsPage.results.event.map((item, index) => displaySearchResults(item));
-      $('.my-search-results-container').html(searchResults);
+      $('.my-search-results-container').prop('hidden', false).html(searchResults);
       } catch (error) {
         $('.my-search-results-container').prop('hidden', false).html(errorMsg);
         }
@@ -175,6 +175,7 @@ $('#login-events-page').on('click', event => {
                 $('#my-events-page').show();
                 $('.log-out').show();
                 $('.loggedin-user').val(result.email);
+/*                $('#my-events-login').text(result.email);*/
                 displayMyEvents(result.email);
                 displayMyTopFive(result.email);
             })
@@ -410,7 +411,7 @@ function displayMyEvents(loggedInUser) {
                     buildTable += '</div>';
                     buildTable += '</div>';
                 });
-                $('.my-saved-events-container').html(buildTable);
+                $('.my-saved-events-container').prop('hidden', false).html(buildTable);
             })
             .fail(function (jqXHR, error, errorThrown) {
                 console.log(jqXHR);

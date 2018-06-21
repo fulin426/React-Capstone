@@ -267,10 +267,11 @@ footer{
 }
 
 .events-search-bar {
-	width: 60%;
+	width: 86%;
 	height: 46px;
 	border: 1px solid #cdd2d4;
 	padding: 5px;
+	margin-bottom: 8px;
 	font-size: 20px;
 	display: inline-block;
 }
@@ -359,7 +360,7 @@ text-align: right;
 }
 
 .events-search-bar {
-width: 100%;
+width: 85%;
 }
 
 .nav-title {

@@ -11,20 +11,21 @@ const should = chai.should();
 
 const { DATABASE_URL, PORT } = require('../config');
 const { TEST_DATABASE_URL } = require('../config');
-const Asset = require('../models/asset');
+const Favorites = require('../models/favorites');
+const EventDetail = require('../models/eventDetails');
 const {app, runServer, closeServer} = require('../server');
 
 chai.use(chaiHttp);
 
 //insert data into mongo
-function seedAssetData() {
-	console.info('seeding AssetData');
+function seedEvemtData() {
+	console.info('seeding EventData');
 	const seedData = [];
 
 	for (let i = 1; i <= 10; i++) {
-	seedData.push(generateAssetData());
+	seedData.push(generateEventdata());
 	}
-	return Asset.insertMany(seedData);
+	return EventDetails.insertMany(seedData);
 }
 
 //insert data into mongo
@@ -37,40 +38,53 @@ function generateUserData() {
 	}
 }
 
-function generateAssetName() {
-	const assetName = ['SP 500','Cash','Real Estate','Total Bond','Dividend Yield'];
-	return assetName[Math.floor(Math.random() * assetName.length)];
+function generateDate() {
+	const date = ['2018-06-24','2018-08-24','2020-01-30','2404-012-30','3030-03-03'];
+	return date[Math.floor(Math.random() * date.length)];
 }
 
-function generateCurrentValue() {
-	const currentValue = [10, 100, 9999, 120120, 1000000];
-	return currentValue[Math.floor(Math.random() * currentValue.length)];
+function generateTime() {
+	const time = ['10:30:00', '12:00:00', '24:30:00', '15:15:15', '08:15:00'];
+	return time[Math.floor(Math.random() * time.length)];
 }
 
-function generateTargetPercentage() {
-	const target = [10, 20, 50, 100];
-	return target[Math.floor(Math.random() * target.length)];
+function generateVenue() {
+	const venue = ['Fox Theatre', 'Pheonix Theatre', 'Warfield', 'Oracle', 'Red Rocks'];
+	return venue[Math.floor(Math.random() * venue.length)];
 }
-//Generate objects representing a Asset
+
+function generateEventName() {
+	const venue = ['Ultra', 'EDC', 'Coachella', 'Electric Forest', 'Burning Man'];
+	return venue[Math.floor(Math.random() * venue.length)];
+}
+
+function generateCity() {
+	const venue = ['Boulder, CO', 'Las Vegas, NV', 'NYC', 'Dallas, TX', 'Oakland, CA'];
+	return venue[Math.floor(Math.random() * venue.length)];
+}
+
+//Generate objects representing a Event
 //for seed data or req.body data
-function generateAssetData() {
+function generateEventData() {
 	return {
-		name: generateAssetName(),
-		value: generateCurrentValue(),
-		target: generateTargetPercentage(),
-		user: testUsername
+		user: testUsername,
+		date: generateDate(),
+		time: generateTime(),
+		venueName: generateVenue(),
+		eventName: generateEventName(),
+		city: generateCity()
 	};
 }
 
 //delete entire database
 //ensure data does not stick around for next one
 function tearDownDb() {
-/*	return new Promise((resolve, reject) => {
+	return new Promise((resolve, reject) => {
 		console.warn('Deleting database');
 		mongoose.connection.dropDatabase()
 		  .then(result => resolve(result))
-		  .catch(err => reject(err));*/
-/*	});*/
+		  .catch(err => reject(err));
+	});
 }
 
 
@@ -82,7 +96,7 @@ describe('API resource', function() {
 	});
 
 	beforeEach(function() {
-		return seedAssetData();
+		return seedEventData();
 	});
 
 	afterEach(function() {
@@ -95,37 +109,36 @@ describe('API resource', function() {
 
   //GET
 	describe('GET ENDPOINT', function() {
-		it('should return all portfolio assets', function() {
+		it('should return all saved events', function() {
 			let res;
 			return chai.request(app)
-				.get(`/asset/get/${testUsername}`)
+				.get(`/event/get/${testUsername}`)
 				.then(function(_res) {
 					res = _res;
 					expect(res).to.have.status(200);
 					expect(res.body).to.have.length.of.at.least(1);
-					return Asset.count();
+					return EventDetail.count();
 				})
 		.then(function(count) {
 				expect(res.body).to.have.length.of(count);
 		});
     });
 
-		it('should return assets with the right fields', function() {
-			let resAsset;
+		it('should return events with the right fields', function() {
+			let resEvent;
 			return chai.request(app)
-				.get(`/asset/get/${testUsername}`)
+				.get(`/event/get/${testUsername}`)
 				.then(function(res) {
 					expect(res).to.have.status(200);
 					expect(res).to.be.json;
 					expect(res.body).to.be.a('array');
 					expect(res.body).to.have.length.of.at.least(1);
-
-				res.body.forEach(function (asset) {
-				    expect(asset).to.be.a('object');
-				    expect(asset).to.include.keys('_id','__v' ,'name', 'value', 'target', 'user');
+				res.body.forEach(function (event) {
+				    expect(event).to.be.a('object');
+				    expect(event).to.include.keys('_id' ,'user', 'date', 'time', 'venueName', 'city', 'eventurl');
 				});
-			resAsset = res.body[0];
-			return Asset.findById(resAsset.id)
+			resEvent = res.body[0];
+			return EventDetail.findById(resEvent.id)
 			});
 		});
 
@@ -149,10 +162,10 @@ describe('API resource', function() {
 
     //POST Create New Asset
 	describe('POST ENDPOINT', function() {
-		it('should add new a asset', function() {
+		it('should add new a event listing', function() {
 			const newAsset = generateAssetData();
 			return chai.request(app)
-				.post('/asset/create')
+				.post('/event/create')
 				.send(newAsset)
 				.then(function(res) {
 					expect(res).to.have.status(200);
@@ -167,52 +180,52 @@ describe('API resource', function() {
 				});
 		});
 	});
-	//PUT UPDATE ASSET BY ID
+/*	//PUT UPDATE artists BY ID
 	describe('PUT endpoint', function() {
-		it('should update fields sent over', function() {
+		it('should update top 5 artists', function() {
 			const updateData = {
-				name: 'Tesla Stock',
-				value: 9000, 
-				target: 99
+				favorites1: 'TLC',
+				favorites3: 'Johnny B Good', 
+				favorites4: 'Kanye West'
 		};
 
-		return Asset
+		return Favorites
 			.findOne()
-			.then( function(asset) {
-				updateData.id = asset.id;
+			.then( function(favorite) {
+				updateData.id = favorite.id;
 				return chai.request(app)
-					.put(`/asset/${asset.id}`)
+					.put(`/event/topartists/${favorite.id}`)
 					.send(updateData);
 			})
 			.then(function(res) {
 				res.should.have.status(204);
-				return Asset.findById(updateData.id);
+				return Favorites.findById(updateData.id);
 			})
-			.then(function(asset) {
-				expect(asset.name).to.equal(updateData.name);
-				expect(parseInt(asset.value)).to.equal(updateData.value);
-				expect(parseInt(asset.target)).to.equal(updateData.target);
+			.then(function(favorites) {
+				expect(favorites.name).to.equal(updateData.name);
+				expect(parseInt(favorites.value)).to.equal(updateData.value);
+				expect(parseInt(favorites.target)).to.equal(updateData.target);
 			});
 		});
 	});			
-	//DELETE ASSET
+	//DELETE Favorite artist
 	describe('DELETE endpoint', function () {
 		it('should delete a post by id', function () {
-			let asset;
-			return Asset
+			let event;
+			return EventDetail
 				.findOne()
-				.then(_asset => {
-					asset = _asset;
-					return chai.request(app).delete(`/asset/delete/${asset.id}`);
+				.then(_event => {
+					event = _event;
+					return chai.request(app).delete(`/event/delete/${event.id}`);
 		})
 		.then(res => {
 			res.should.have.status(204);
-			return Asset.findById(asset.id);
+			return Favorites.findById(event.id);
 		})
-		.then(_asset => {
-			should.not.exist(_asset);
+		.then(_event => {
+			should.not.exist(_event);
 		});
-	});
+	});*/
 });
 });
-});  
+/*}); */ 

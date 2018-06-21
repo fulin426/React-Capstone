@@ -51,7 +51,6 @@
 			</div>	
 		</div>
 	</section>	
-	
 	<section id='login-page' class='login-sign-pages'>
 		<form class="signup-login-form" role="form">
 			<fieldset class="labels-inputs">
@@ -72,7 +71,6 @@
 			</div>
 		</form>
 	</section>
-	
 	<section id='sign-up-page' class='login-sign-pages'>
 		<form class="signup-login-form" role="form">
 			<fieldset class="labels-inputs">
@@ -90,14 +88,13 @@
 			</div>
 		</form>
 	</section>
-	
 	<section id='my-events-page'>
 		<div class='events-page-container'>
 			<div class='events-row my-results'>
 				<div class='col-6 search-section'>		
 					<form class='searchbar-button-container' role="search">
 						<input class='events-search-bar' value='' type='search' placeholder='Search Artist'>
-						<button class='events-search-button' role='button'>Search</button>
+						<button class='events-search-button' role='button'><i class="fas fa-search"></i></button>
 					</form>
 				</div>
 				<div class='col-6 favorite-artists'>
@@ -148,7 +145,7 @@
 				<h1>My Events<h1>
 			</div>
 			<!-- My events section -->
-			<div class='my-saved-events-container'>
+			<div class='my-saved-events-container' aria-live="assertive" hidden>
 	
 			</div>
 			<!-- Artist Search Results -->
@@ -160,7 +157,7 @@
 					</a>
 				</div>
 			</div>	
-			<div class='my-search-results-container'>
+			<div class='my-search-results-container' aria-live="assertive" hidden>
 	
 			</div>	
 		</div>
