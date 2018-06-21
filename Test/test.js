@@ -4,7 +4,6 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const faker = require('faker');
 const mongoose = require('mongoose');
-
 //expect syntax in module
 const expect = chai.expect;
 const should = chai.should();
@@ -26,6 +25,26 @@ function seedEventData() {
 	seedData.push(generateEventData());
 	}
 	return EventDetail.insertMany(seedData);
+}
+
+function seedArtistData() {
+	console.info('seeding ArtistData');
+	const seedData = [];
+
+	for (let i = 1; i <= 10; i++) {
+	seedData.push(generateArtistData());
+	}
+	return Favorites.insertMany(seedData);
+}
+
+function generateArtistData() {
+	return {
+		favorites1:faker.random.word(),
+		favorites2:faker.random.word(),
+		favorites3:faker.random.word(),
+		favorites4:faker.random.word(),
+		favorites5:faker.random.word()
+	};
 }
 
 //insert data into mongo
@@ -87,12 +106,15 @@ function tearDownDb() {
 	});
 }
 
-
 //hook functions to return a promise
 // before and after functions
 describe('API resource', function() {
 	before(function() {
 		return runServer(TEST_DATABASE_URL);
+	});
+
+	beforeEach(function() {
+		return seedArtistData();
 	});
 
 	beforeEach(function() {
@@ -181,7 +203,7 @@ describe('API resource', function() {
 		});
 	});
 	//PUT UPDATE artists BY ID
-/*	describe('PUT endpoint', function() {
+	describe('PUT endpoint', function() {
 		it('should update top 5 artists', function() {
 			const updateData = {
 				favorites1: 'TLC',
@@ -192,7 +214,6 @@ describe('API resource', function() {
 		return Favorites
 			.findOne()
 			.then(function(favorites) {
-				console.log(favorites.id);
 				updateData.id = favorites.id;
 				return chai.request(app)
 					.put(`/event/topartists/${favorites.id}`)
@@ -202,14 +223,14 @@ describe('API resource', function() {
 				res.should.have.status(204);
 				return Favorites.findById(updateData.id);
 			})
-/*			.then(function(favorites) {
-				expect(favorites.name).to.equal(updateData.name);
-				expect(parseInt(favorites.value)).to.equal(updateData.value);
-				expect(parseInt(favorites.target)).to.equal(updateData.target);*/
-/*			});
+		.then(function(favorites) {
+				expect(favorites.favorites1).to.equal(updateData.favorites1);
+				expect(favorites.favorites3).to.equal(updateData.favorites3);
+				expect(favorites.favorites4).to.equal(updateData.favorites4);
+			});
 		});
-	});		*/	
-	//DELETE Favorite artist
+	});		
+	//DELETE Event
 	describe('DELETE endpoint', function () {
 		it('should delete a Event by id', function () {
 			let event;
