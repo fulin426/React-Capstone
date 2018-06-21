@@ -141,7 +141,7 @@ describe('API resource', function() {
 			return EventDetail.findById(resEvent.id)
 			});
 		});
-/*
+
   //POST Create New User
 	describe('POST ENDPOINT', function() {
 		it('should add new a user', function() {
@@ -160,28 +160,28 @@ describe('API resource', function() {
 		});
 	});
 
-    //POST Create New Asset
+    //POST Create New Event
 	describe('POST ENDPOINT', function() {
 		it('should add new a event listing', function() {
-			const newAsset = generateAssetData();
+			const newEvent = generateEventData();
 			return chai.request(app)
 				.post('/event/create')
-				.send(newAsset)
+				.send(newEvent)
 				.then(function(res) {
 					expect(res).to.have.status(200);
 					expect(res).to.be.json;
 					expect(res.body).to.be.a('object');
-					expect(res.body).to.include.keys('_id','__v' ,'name', 'value', 'target', 'user');
-					expect(res.body.name).to.equal(newAsset.name);
-					expect(res.body.user).to.equal(newAsset.user);
-					expect(parseInt(res.body.value)).to.equal(newAsset.value);
-					expect(parseInt(res.body.target)).to.equal(newAsset.target);
+					expect(res.body).to.include.keys('_id', '__v','user', 'date', 'time', 'venueName', 'city', 'eventName');
+					expect(res.body.time).to.equal(newEvent.time);
+					expect(res.body.user).to.equal(newEvent.user);
+					expect(res.body.venueName).to.equal(newEvent.venueName);
+					expect(res.body.eventName).to.equal(newEvent.eventName);
 					expect(res.body._id).to.not.be.null;
 				});
 		});
-	});*/
-/*	//PUT UPDATE artists BY ID
-	describe('PUT endpoint', function() {
+	});
+	//PUT UPDATE artists BY ID
+/*	describe('PUT endpoint', function() {
 		it('should update top 5 artists', function() {
 			const updateData = {
 				favorites1: 'TLC',
@@ -191,26 +191,27 @@ describe('API resource', function() {
 
 		return Favorites
 			.findOne()
-			.then( function(favorite) {
-				updateData.id = favorite.id;
+			.then(function(favorites) {
+				console.log(favorites.id);
+				updateData.id = favorites.id;
 				return chai.request(app)
-					.put(`/event/topartists/${favorite.id}`)
+					.put(`/event/topartists/${favorites.id}`)
 					.send(updateData);
 			})
 			.then(function(res) {
 				res.should.have.status(204);
 				return Favorites.findById(updateData.id);
 			})
-			.then(function(favorites) {
+/*			.then(function(favorites) {
 				expect(favorites.name).to.equal(updateData.name);
 				expect(parseInt(favorites.value)).to.equal(updateData.value);
-				expect(parseInt(favorites.target)).to.equal(updateData.target);
-			});
+				expect(parseInt(favorites.target)).to.equal(updateData.target);*/
+/*			});
 		});
-	});			
+	});		*/	
 	//DELETE Favorite artist
 	describe('DELETE endpoint', function () {
-		it('should delete a post by id', function () {
+		it('should delete a Event by id', function () {
 			let event;
 			return EventDetail
 				.findOne()
@@ -225,7 +226,7 @@ describe('API resource', function() {
 		.then(_event => {
 			should.not.exist(_event);
 		});
-	});*/
+	});
 });
 });
-/*}); */ 
+});  
