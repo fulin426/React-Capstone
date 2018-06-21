@@ -15,17 +15,21 @@ const Favorites = require('../models/favorites');
 const EventDetail = require('../models/eventDetails');
 const {app, runServer, closeServer} = require('../server');
 
+console.log(runServer);
+console.log(closeServer);
+console.log(TEST_DATABASE_URL);
+
 chai.use(chaiHttp);
 
 //insert data into mongo
-function seedEvemtData() {
+function seedEventData() {
 	console.info('seeding EventData');
 	const seedData = [];
 
 	for (let i = 1; i <= 10; i++) {
-	seedData.push(generateEventdata());
+	seedData.push(generateEventData());
 	}
-	return EventDetails.insertMany(seedData);
+	return EventDetail.insertMany(seedData);
 }
 
 //insert data into mongo
@@ -124,7 +128,7 @@ describe('API resource', function() {
 		});
     });
 
-		it('should return events with the right fields', function() {
+/*		it('should return events with the right fields', function() {
 			let resEvent;
 			return chai.request(app)
 				.get(`/event/get/${testUsername}`)
@@ -140,8 +144,8 @@ describe('API resource', function() {
 			resEvent = res.body[0];
 			return EventDetail.findById(resEvent.id)
 			});
-		});
-
+		});*/
+/*
   //POST Create New User
 	describe('POST ENDPOINT', function() {
 		it('should add new a user', function() {
@@ -179,7 +183,7 @@ describe('API resource', function() {
 					expect(res.body._id).to.not.be.null;
 				});
 		});
-	});
+	});*/
 /*	//PUT UPDATE artists BY ID
 	describe('PUT endpoint', function() {
 		it('should update top 5 artists', function() {

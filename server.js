@@ -275,3 +275,7 @@ app.use('*', (req, res) => {
         message: 'Not Found'
     });
 });
+
+exports.app = app;
+exports.runServer = runServer;
+exports.closeServer = closeServer;
