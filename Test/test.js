@@ -15,10 +15,6 @@ const Favorites = require('../models/favorites');
 const EventDetail = require('../models/eventDetails');
 const {app, runServer, closeServer} = require('../server');
 
-console.log(runServer);
-console.log(closeServer);
-console.log(TEST_DATABASE_URL);
-
 chai.use(chaiHttp);
 
 //insert data into mongo
@@ -128,7 +124,7 @@ describe('API resource', function() {
 		});
     });
 
-/*		it('should return events with the right fields', function() {
+		it('should return events with the right fields', function() {
 			let resEvent;
 			return chai.request(app)
 				.get(`/event/get/${testUsername}`)
@@ -139,12 +135,12 @@ describe('API resource', function() {
 					expect(res.body).to.have.length.of.at.least(1);
 				res.body.forEach(function (event) {
 				    expect(event).to.be.a('object');
-				    expect(event).to.include.keys('_id' ,'user', 'date', 'time', 'venueName', 'city', 'eventurl');
+				    expect(event).to.include.keys('_id', '__v','user', 'date', 'time', 'venueName', 'city', 'eventName');
 				});
 			resEvent = res.body[0];
 			return EventDetail.findById(resEvent.id)
 			});
-		});*/
+		});
 /*
   //POST Create New User
 	describe('POST ENDPOINT', function() {
