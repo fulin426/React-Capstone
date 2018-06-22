@@ -230,21 +230,29 @@ footer{
 }
 /*my events page*/
 
+#welcome-user {
+    float: left;
+    padding-bottom: 10px;
+    font-size: 22px;
+    padding-left: 4px;
+
+}
+
 .events-page-container{
 	margin-left: 6px;
 	margin-right: 6px;
 }
 
 .searchbar-button-container {
-	margin: 0 auto;
-	margin-top: 22px;
-	margin-bottom: 10px;
-	max-width: 500px;
-	height: 60px;
+    margin: 0 auto;
+    margin-bottom: 0px;
+    max-width: 500px;
+    height: 60px;
 }
 
 .search-section {
 	height: 100%;
+	text-align: center;
 }
 
 .favorites-artist-wrapper {
@@ -344,12 +352,11 @@ footer{
 /*results section*/
 .my-results {
 	font-size: 24px;
-	margin-top: 20px;
 	margin-bottom: 0px;
 	border: none;
-	padding-top: 20px;
 	text-align: center;
 	background: white;
+	margin-top: 18px;
 }
 
 /* Non-mobile, grid */

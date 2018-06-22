@@ -175,7 +175,7 @@ $('#login-events-page').on('click', event => {
                 $('#my-events-page').show();
                 $('.log-out').show();
                 $('.loggedin-user').val(result.email);
-/*                $('#my-events-login').text(result.email);*/
+                $('#welcome-user').text(result.email);;
                 displayMyEvents(result.email);
                 displayMyTopFive(result.email);
             })
@@ -220,6 +220,7 @@ $('#signup-events-page').on('click', event => {
                 $('#my-events-page').show();
                 $('.loggedin-user').val(result.email);
                 //Create favorite artists object for new user
+                $('#welcome-user').text(result.email);
                 createFavArtistsObject(result.email);
                 displayMyTopFive(result.email);
             })
