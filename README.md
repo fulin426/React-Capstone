@@ -1,4 +1,4 @@
-# Capstone
+# # Upcoming Events Node Capstone
 Thinkful (https://www.thinkful.com) Third Capstone Project Upcoming Events is a interactive fullstack web app that allows users to search for concert dates based on their favorite artists and save events that are upcoming. 
 ## Screenshots
 ![Screenshots](https://raw.githubusercontent.com/fulin426/React-Capstone/master/public/Images/screenshot_landing-page.png)
@@ -15,7 +15,7 @@ As a user I should be able to search for upcoming events, to save upcoming event
 
 ## Working Prototype
 
-Live preview at https://capstone-upcoming-events.herokuapp.com/
+Live preview with Node at https://capstone-upcoming-events.herokuapp.com/ and with React https://fulin426.github.io/upcoming-events-react-capstone/build
 
 ## Technology
 ### Front End
@@ -30,6 +30,19 @@ Live preview at https://capstone-upcoming-events.herokuapp.com/
 * Mongoose
 * mLab Database
 * Mocha and Chai
+
+#  The typical command lines for capstone projects
+
+## Node command lines
+* npm install ==> install all node modules
+* nodemon server.js ==> run node server
+* npm test ==> run the tests
+
+## React command lines
+* npm install ==> install all node modules
+* npm run build ==> build the react files in the "build" folder
+* npm start ==> run react server on http://127.0.0.1:8080
+* npm test ==> run the tests
 
 ## Responsive
 This app is responsive and optimized for desktop and mobile use. 
