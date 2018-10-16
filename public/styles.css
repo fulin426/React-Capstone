@@ -231,11 +231,10 @@ footer{
 /*my events page*/
 
 #welcome-user {
-    float: left;
     padding-bottom: 10px;
     font-size: 22px;
     padding-left: 4px;
-
+    text-align: center;
 }
 
 .events-page-container{
