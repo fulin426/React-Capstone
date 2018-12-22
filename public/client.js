@@ -394,6 +394,20 @@ function displayMyEvents(loggedInUser) {
                 type: "GET"
             })
             .done(function (result) {  
+            //re-arrange dates with year first for comparison
+            function splitDate(date) {
+              let splitDate = date.split("-");
+              return splitDate[2] + splitDate [0] + splitDate [1];
+            }
+            //comparison logic
+            function compare(a,b) {
+              if (splitDate(a.date) < splitDate(b.date))
+                return -1;
+              if (splitDate(a.date) > splitDate(b.date))
+                return 1;
+              return 0;
+            }
+            result.sort(compare);
              let buildTable = '';             
                 $.each(result, function (resulteKey, resulteValue) {
                     buildTable += '<div class="events-row my-events">';
