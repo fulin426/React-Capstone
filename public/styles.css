@@ -385,3 +385,16 @@ width: 85%;
 	font-size: 26px;
 	line-height: 58px;
 }
+
+/*only show buttons when hover over event*/
+#delete-event-trigger, #add-event-trigger {
+ display: none;
+}
+
+.my-events:hover #delete-event-trigger {
+	display: inline-block;
+}
+
+.my-events:hover #add-event-trigger {
+	display: inline-block;
+}
