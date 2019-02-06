@@ -9,8 +9,8 @@ const API_Key ='BNciuRNtRNFoYYJG';
 
 function getArtistData (searchTerm) {
     let artistSearchBarValue = $('.events-search-bar').val()
-    const errorMsg = `   
-        <div class='events-row my-events' id='error-message'>      
+    const errorMsg = `
+        <div class='events-row my-events' id='error-message'>
           <p>${artistSearchBarValue} Not found. Please check spelling or try another artist name.</p>
         </div>`;
 
@@ -35,18 +35,17 @@ function getArtistData (searchTerm) {
 
 function getCalendarData(artistID) {
   let artistSearchBarValue = $('.events-search-bar').val();
-  const errorMsg = `   
-        <div class='events-row my-events' id='error-message'>      
+  const errorMsg = `
+        <div class='events-row my-events' id='error-message'>
           <p>No upcoming ${artistSearchBarValue} performances found. Please try a different artist.</p>
-        </div>`;  
+        </div>`;
 
   let settings = {
     url:`https://api.songkick.com/api/3.0/artists/${artistID}/calendar.json?apikey=${API_Key}`,
     dataType: 'json',
     type: 'GET',
     success: data => {
-      console.log(data);
-      try { 
+      try {
         let searchResults = data.resultsPage.results.event.map((item, index) => displaySearchResults(item));
       $('.my-search-results-container').prop('hidden', false).html(searchResults);
       } catch (error) {
@@ -61,8 +60,8 @@ function getCalendarData(artistID) {
 }
 
 function displaySearchResults(data) {
- return `   
-        <div class='events-row my-events'>      
+ return `
+        <div class='events-row my-events'>
           <div class='col-3 date-time'>
             <p class='event-date'>${formateDate(data.start.date)}</p>
             <p class='event-time'>${ifNull(data.start.time)}</p>
@@ -73,8 +72,8 @@ function displaySearchResults(data) {
             <p class='event-city'>${data.location.city}</p>
           </div>
           <div class='col-3 event-add-button'>
-            <p id='add-event-trigger'><i class="fas fa-plus-square fa-2x"></i></p>  
-          </div>  
+            <p id='add-event-trigger'><i class="fas fa-plus-square fa-2x"></i></p>
+          </div>
         </div>`;
 }
 //Functions that format the returned information
@@ -102,7 +101,7 @@ function convertAMPM(time) {
     } else if (hours == 0) {
       convertedTime= "12";
     }
-  convertedTime += (minutes < 10) ? ":0" + minutes : ":" + minutes; 
+  convertedTime += (minutes < 10) ? ":0" + minutes : ":" + minutes;
   convertedTime += (hours >= 12) ? " PM" : " AM";
   return convertedTime;
 };
@@ -166,7 +165,7 @@ $('#login-events-page').on('click', event => {
                 data: JSON.stringify(loginUserObject),
                 contentType: 'application/json'
             })
-            .done(function (result) {         
+            .done(function (result) {
                 //hide all the sections
                 $('section').hide();
                 $('.my-results-header').hide();
@@ -177,7 +176,7 @@ $('#login-events-page').on('click', event => {
                 $('.loggedin-user').val(result.email);
                 $('#welcome-user').text(`Welcome, ${result.email}`);
                 displayMyEvents(result.email);
-                displayMyTopFive(result.email);
+                // displayMyTopFive(result.email);
             })
             .fail(function (jqXHR, error, errorThrown) {
                 console.log(jqXHR);
@@ -196,7 +195,7 @@ $('#signup-events-page').on('click', event => {
             alert('Please Add Valid Email');
         } else if (password === '') {
             alert('Please Add Valid Password');
-        } 
+        }
         else {
             const newUserObject = {
                 email: email,
@@ -211,7 +210,7 @@ $('#signup-events-page').on('click', event => {
             })
             .done(function (result) {
                 //display the results
-                alert(`${result.email} created`);               
+                alert(`${result.email} created`);
                 //hide all the sections
                 $('section').hide();
                 $('.artist-edit-input-container').hide();
@@ -246,96 +245,96 @@ $('.fa-eye').on('click', event => {
   getArtistData (favoriteArtist);
 });
 
-//Edit Top 5 trigger
-$('.fa-edit').on('click', event => {
-  event.preventDefault();
-    const newFavorite1 = $('#artist-1').val();
-    const newFavorite2 = $('#artist-2').val();
-    const newFavorite3 = $('#artist-3').val();
-    const newFavorite4 = $('#artist-4').val();
-    const newFavorite5 = $('#artist-5').val();
-    const objectId = $('#topArtists-id').val();
-    const loggedInUser = $('.loggedin-user').val();
-
-    const editObject = {
-    favorites1: newFavorite1,
-    favorites2: newFavorite2,
-    favorites3: newFavorite3,
-    favorites4: newFavorite4,
-    favorites5: newFavorite5
-    };
-    $.ajax({
-        type: 'PUT',
-        url: `/event/topartists/${objectId}`,
-        dataType: 'json',
-        data: JSON.stringify(editObject),
-        contentType: 'application/json'
-    })
-    .done(function (result) {
-        displayMyTopFive(loggedInUser);
-    })
-    .fail(function (jqXHR, error, errorThrown) {
-        console.log(jqXHR);
-        console.log(error);
-        console.log(errorThrown);
-    });
-});
-
-function createFavArtistsObject(userEmail) {
-    const artistOne = 'Add Artist Name';
-    const artistTwo = 'Add Artist Name';
-    const artistThree = 'Add Artist Name';
-    const artistFour = 'Add Artist Name';
-    const artistFive = 'Add Artist Name';
-    const loggedInUser = userEmail;
-
-    const newTopFiveObject = {
-        user: loggedInUser,
-        favorites1: artistOne,
-        favorites2: artistTwo,
-        favorites3: artistThree,
-        favorites4: artistFour,
-        favorites5: artistFive
-    };
-    $.ajax({
-        type: 'POST',
-        url: '/topartists',
-        dataType: 'json',
-        data: JSON.stringify(newTopFiveObject),
-        contentType: 'application/json'
-    })
-    .done(function(result) {
-        $('#topArtists-id').val(result._id);
-    })
-    .fail(function (jqXHR, error, errorThrown) {
-        console.log(jqXHR);
-        console.log(error);
-        console.log(errorThrown);
-    });
-}
+//Edit Top 5 trigger, feature disabled for the time being
+// $('.fa-edit').on('click', event => {
+//   event.preventDefault();
+//     const newFavorite1 = $('#artist-1').val();
+//     const newFavorite2 = $('#artist-2').val();
+//     const newFavorite3 = $('#artist-3').val();
+//     const newFavorite4 = $('#artist-4').val();
+//     const newFavorite5 = $('#artist-5').val();
+//     const objectId = $('#topArtists-id').val();
+//     const loggedInUser = $('.loggedin-user').val();
+//
+//     const editObject = {
+//     favorites1: newFavorite1,
+//     favorites2: newFavorite2,
+//     favorites3: newFavorite3,
+//     favorites4: newFavorite4,
+//     favorites5: newFavorite5
+//     };
+//     $.ajax({
+//         type: 'PUT',
+//         url: `/event/topartists/${objectId}`,
+//         dataType: 'json',
+//         data: JSON.stringify(editObject),
+//         contentType: 'application/json'
+//     })
+//     .done(function (result) {
+//         displayMyTopFive(loggedInUser);
+//     })
+//     .fail(function (jqXHR, error, errorThrown) {
+//         console.log(jqXHR);
+//         console.log(error);
+//         console.log(errorThrown);
+//     });
+// });
+//
+// function createFavArtistsObject(userEmail) {
+//     const artistOne = 'Add Artist Name';
+//     const artistTwo = 'Add Artist Name';
+//     const artistThree = 'Add Artist Name';
+//     const artistFour = 'Add Artist Name';
+//     const artistFive = 'Add Artist Name';
+//     const loggedInUser = userEmail;
+//
+//     const newTopFiveObject = {
+//         user: loggedInUser,
+//         favorites1: artistOne,
+//         favorites2: artistTwo,
+//         favorites3: artistThree,
+//         favorites4: artistFour,
+//         favorites5: artistFive
+//     };
+//     $.ajax({
+//         type: 'POST',
+//         url: '/topartists',
+//         dataType: 'json',
+//         data: JSON.stringify(newTopFiveObject),
+//         contentType: 'application/json'
+//     })
+//     .done(function(result) {
+//         $('#topArtists-id').val(result._id);
+//     })
+//     .fail(function (jqXHR, error, errorThrown) {
+//         console.log(jqXHR);
+//         console.log(error);
+//         console.log(errorThrown);
+//     });
+// }
 //Insert values from object
-function displayMyTopFive(loggedInUser) {
-    let result = $.ajax({
-                url: `/event/topartists/${loggedInUser}`,
-                dataType: "json",
-                type: "GET"
-            })
-            .done(function (result) {
-              $('#artist-1').val(result[0].favorites1);
-              $('#artist-2').val(result[0].favorites2);
-              $('#artist-3').val(result[0].favorites3);
-              $('#artist-4').val(result[0].favorites4);
-              $('#artist-5').val(result[0].favorites5);
-              $('#topArtists-id').val(result[0]._id);
-            })
-            .fail(function (jqXHR, error, errorThrown) {
-              console.log(jqXHR);
-              console.log(error);
-              console.log(errorThrown);
-            });
-}
+// function displayMyTopFive(loggedInUser) {
+//     let result = $.ajax({
+//                 url: `/event/topartists/${loggedInUser}`,
+//                 dataType: "json",
+//                 type: "GET"
+//             })
+//             .done(function (result) {
+//               $('#artist-1').val(result[0].favorites1);
+//               $('#artist-2').val(result[0].favorites2);
+//               $('#artist-3').val(result[0].favorites3);
+//               $('#artist-4').val(result[0].favorites4);
+//               $('#artist-5').val(result[0].favorites5);
+//               $('#topArtists-id').val(result[0]._id);
+//             })
+//             .fail(function (jqXHR, error, errorThrown) {
+//               console.log(jqXHR);
+//               console.log(error);
+//               console.log(errorThrown);
+//             });
+// }
 //Search for Artist
-$('.events-search-button').on('click', event => {
+$('.events-search-button').on('click', function(event) {
   event.preventDefault();
   let artist = $('.events-search-bar').val();
   if (artist === '') {
@@ -343,7 +342,15 @@ $('.events-search-button').on('click', event => {
   } else {
   getArtistData (artist);
     $('.my-results-header').show();
+    $('.my-search-results-container').show()
   }
+});
+//Scroll feature after searchbar
+$('.events-search-button').on('click', function(event) {
+	event.preventDefault();
+	let jump = $(this).attr("href");
+	let new_position = $(jump).offset();
+	$('html, body').stop().animate({ scrollTop: new_position.top - 10 }, 800);
 });
 
 //Add event
@@ -357,7 +364,7 @@ $('.my-search-results-container').on('click', '.fa-plus-square', function(event)
     const newVenueURL = $(event.target).closest('.my-events').find('.url-venue').attr('href');
     const newEventURL = $(event.target).closest('.my-events').find('.url-event').attr('href');
     const loggedInUser = $('.loggedin-user').val();
-    
+
     const newEventObject = {
         user: loggedInUser,
         date: newDate,
@@ -378,6 +385,8 @@ $('.my-search-results-container').on('click', '.fa-plus-square', function(event)
     .done(function(result) {
       displayMyEvents(result.user);
       $(event.target).closest('.my-events').hide();
+      $('.my-results-header').hide();
+      $('.my-search-results-container').hide();
     })
     .fail(function (jqXHR, error, errorThrown) {
         console.log(jqXHR);
@@ -393,7 +402,7 @@ function displayMyEvents(loggedInUser) {
                 dataType: "json",
                 type: "GET"
             })
-            .done(function (result) {  
+            .done(function (result) {
             //re-arrange dates with year first for comparison
             function splitDate(date) {
               let splitDate = date.split("-");
@@ -408,7 +417,7 @@ function displayMyEvents(loggedInUser) {
               return 0;
             }
             result.sort(compare);
-             let buildTable = '';             
+             let buildTable = '';
                 $.each(result, function (resulteKey, resulteValue) {
                     buildTable += '<div class="events-row my-events">';
                     buildTable += `<input type="hidden" name="event-id" class="event-id" value="${resulteValue._id}">`;

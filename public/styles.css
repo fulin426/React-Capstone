@@ -1,3 +1,4 @@
+/* reset all default styles */
 * {
 	margin: 0;
 	padding: 0;
@@ -63,7 +64,7 @@ nav {
 	line-height: 64px;
 }
 
-.log-out:hover { 
+.log-out:hover {
    color: #f4dc0b;
 }
 /*Landing Page*/
@@ -367,6 +368,10 @@ text-align: right;
 
 .events-search-bar {
 width: 85%;
+}
+
+.events-search-button{
+	width: 14%;
 }
 
 .nav-title {
