@@ -230,20 +230,15 @@ $('#signup-events-page').on('click', event => {
             });
         };
 });
-//log-out
-$('.log-out').on('click', event => {
-  event.preventDefault();
-    location.reload();
-})
 
-//Favorite Artist Search Trigger
-$('.fa-eye').on('click', event => {
-  event.preventDefault();
-  const favoriteArtist = $(event.target).closest('.favorites-artist-wrapper').find('.fav-artist-input').val();
-  $('.events-search-bar').val('');
-  $('.my-results-header').show();
-  getArtistData (favoriteArtist);
-});
+//Favorite Artist Search Trigger, feature disabled for the time being
+// $('.fa-eye').on('click', event => {
+//   event.preventDefault();
+//   const favoriteArtist = $(event.target).closest('.favorites-artist-wrapper').find('.fav-artist-input').val();
+//   $('.events-search-bar').val('');
+//   $('.my-results-header').show();
+//   getArtistData (favoriteArtist);
+// });
 
 //Edit Top 5 trigger, feature disabled for the time being
 // $('.fa-edit').on('click', event => {
@@ -345,6 +340,13 @@ $('.events-search-button').on('click', function(event) {
     $('.my-search-results-container').show()
   }
 });
+
+//hide search results when searching new artist
+$('.events-search-bar').on('click', function(event){
+  $('.my-search-results-container').hide();
+  $('.my-results-header').hide();
+});
+
 //Scroll feature after searchbar
 $('.events-search-button').on('click', function(event) {
 	event.preventDefault();
@@ -459,3 +461,9 @@ $('.my-saved-events-container').on('click', '.delete-button', function(event) {
             console.log(errorThrown);
         });
 });
+
+//log-out
+$('.log-out').on('click', event => {
+  event.preventDefault();
+    location.reload();
+})
