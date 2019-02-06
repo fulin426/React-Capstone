@@ -385,8 +385,6 @@ $('.my-search-results-container').on('click', '.fa-plus-square', function(event)
     .done(function(result) {
       displayMyEvents(result.user);
       $(event.target).closest('.my-events').hide();
-      $('.my-results-header').hide();
-      $('.my-search-results-container').hide();
     })
     .fail(function (jqXHR, error, errorThrown) {
         console.log(jqXHR);
