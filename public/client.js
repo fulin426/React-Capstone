@@ -423,7 +423,7 @@ function displayMyEvents(loggedInUser) {
                     buildTable += `<input type="hidden" name="event-id" class="event-id" value="${resulteValue._id}">`;
                     buildTable += '<div class="col-3 date-time">';
                     buildTable += `<p class="event-date">${resulteValue.date}</p>`;
-                    buildTable += `<p class="event-time">${ifNull(resulteValue.time)}</p>`;
+                    buildTable += `<p class="event-time">${resulteValue.time}</p>`;
                     buildTable += '</div>';
                     buildTable += '<div class="col-6 event-info">';
                     buildTable += `<p class="event-name"><a href="${resulteValue.eventurl}" class="url-event" target="_blank">${resulteValue.eventName}</a></p>`;
