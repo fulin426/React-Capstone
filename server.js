@@ -1,6 +1,5 @@
 const User = require('./models/user');
 const EventDetail = require('./models/eventDetails');
-const Favorites = require('./models/favorites');
 const bodyParser = require('body-parser');
 const config = require('./config');
 const mongoose = require('mongoose');
@@ -179,71 +178,6 @@ app.post('/event/create', (req, res) => {
             }
         });
 });
-
-// POST -----------------------------------------
-// Create top5 artist list on firstime login, feature disabled for the time being
-// app.post('/topartists', (req, res) => {
-//     let user = req.body.user;
-//     let favorites1 = req.body.favorites1;
-//     let favorites2 = req.body.favorites2;
-//     let favorites3 = req.body.favorites3;
-//     let favorites4 = req.body.favorites4;
-//     let favorites5 = req.body.favorites5;
-//
-//         Favorites.create({
-//             user,
-//             favorites1,
-//             favorites2,
-//             favorites3,
-//             favorites4,
-//             favorites5
-//         }, (err, item) => {
-//             if (err) {
-//                 return res.status(500).json({
-//                     message: 'Internal Server Error'
-//                 });
-//             }
-//             if(item) {
-//                 return res.json(item);
-//             }
-//         });
-// });
-
-// feature disabled for the time being
-// PUT --------------------------------------
-// edit the top 5 list
-// app.put('/event/topartists/:id', function (req, res) {
-//     let toUpdate = {};
-//     let updateableFields = ['favorites1', 'favorites2', 'favorites3', 'favorites4', 'favorites5'];
-//     updateableFields.forEach(function(field) {
-//         if (field in req.body) {
-//             toUpdate[field] = req.body[field];
-//         }
-//     });
-//     Favorites
-//         .findByIdAndUpdate(req.params.id, {
-//             $set: toUpdate
-//         }).exec().then(function(favorites) {
-//             return res.status(204).end();
-//         }).catch(function(err) {
-//             return res.status(500).json({
-//                 message: 'Internal Server Error'
-//             });
-//         });
-// });
-
-// ACCESING the top 5 artist list BY ID
-// app.get('/event/topartists/:user', function (req, res) {
-//     Favorites.find({
-//             user: req.params.user
-//         }, (err, event) => {
-//             if (err) {
-//                 res.send(err)
-//             }
-//             res.json(event)
-//     })
-// });
-
 
 // ACCESING A SINGLE event BY ID
 app.get('/event/get/:user', function (req, res) {
